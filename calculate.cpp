@@ -22,9 +22,12 @@ void calculate() {
     user_command.erase(user_command.find_last_not_of(" \t\n\r\f\v") + 1);
     std::transform(user_command.begin(), user_command.end(), user_command.begin(), ::tolower);
 
+    // Keep looping until user enter a valid respond
     while (true) {
         if (command_dictionary.count(user_command) > 0) break;
         std::cout << "Invalid Command, Enter correct command for calculation:" << std::endl;
+        user_command.clear();
+        std::cin >> user_command;
         user_command.erase(0, user_command.find_first_not_of(" \t\n\r\f\v"));
         user_command.erase(user_command.find_last_not_of(" \t\n\r\f\v") + 1);
         std::transform(user_command.begin(), user_command.end(), user_command.begin(), ::tolower);
