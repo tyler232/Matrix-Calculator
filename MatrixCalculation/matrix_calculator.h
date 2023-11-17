@@ -1,7 +1,9 @@
 #ifndef MATRIX_CALCULATOR_H
 #define MATRIX_CALCULATOR_H
 
-#include "./MatrixImplementation/matrix.h"
+#include "lib/matrix.h"
+#include <iostream>
+#include <vector>
 
 class MatrixCalculator {
 public:
@@ -12,7 +14,7 @@ public:
     static Matrix subtraction(const Matrix& matrix1, const Matrix& matrix2);
 
     // Matrix multiplication
-    static Matrix multiply(const Matrix& matrix1, const Matrix& matrix2);
+    // static Matrix multiply(const Matrix& matrix1, const Matrix& matrix2);
 };
 
 #endif
