@@ -14,8 +14,9 @@ public:
     // default constructor
     Matrix() = default;
 
-    // constructor
+    // constructors
     Matrix(uint32_t rows, uint32_t cols);
+    Matrix(std::vector<std::vector<double>> start_data);
 
     // Getters
     uint32_t getRowSize() const;

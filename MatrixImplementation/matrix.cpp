@@ -6,6 +6,12 @@ Matrix::Matrix(uint32_t rows, uint32_t cols) : row_size(rows), col_size(cols) {
     }
 }
 
+Matrix::Matrix(std::vector<std::vector<double>> start_data) {
+    data = start_data;
+    row_size = start_data.size();
+    col_size = start_data[0].size();
+}
+
 uint32_t Matrix::getRowSize() const {
     return row_size;
 }

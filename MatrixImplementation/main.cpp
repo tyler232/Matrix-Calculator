@@ -15,6 +15,13 @@ int main() {
 
     matrix.setColSize(2);
     matrix.print();
-    return 0;
 
+    std::vector<std::vector<double>> data = {{0, 1, 4},
+                                             {2, 3, 6},
+                                             {0, 5, 7}};
+    std::cout << "Here" << std::endl;
+    Matrix matrix_A(data);
+    matrix_A.print();
+
+    return 0;
 }
