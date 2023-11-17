@@ -1,1 +1,3 @@
 # Matrix-Calculator
+
+Currently working, expected to make different matrix calculations such as multiplication, add&sub, transpose...
