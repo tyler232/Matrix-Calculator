@@ -14,7 +14,7 @@ public:
     static Matrix subtraction(const Matrix& matrix1, const Matrix& matrix2);
 
     // Matrix multiplication
-    // static Matrix multiply(const Matrix& matrix1, const Matrix& matrix2);
+    static Matrix multiplication(const Matrix& matrix1, const Matrix& matrix2);
 };
 
 #endif

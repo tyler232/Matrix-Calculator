@@ -14,8 +14,11 @@ $(TARGET): $(OBJS)
 main.o: main.cpp matrix_calculator.h lib/matrix.h
 	$(CXX) $(CFLAGS) -c main.cpp
 
-matrix.o: matrix.cpp matrix_calculator.h lib/matrix.h
+matrix_calculator.o: matrix_calculator.cpp matrix_calculator.h lib/matrix.h
 	$(CXX) $(CFLAGS) -c matrix_calculator.cpp
+
+lib/matrix.o: lib/matrix.cpp lib/matrix.h
+	$(CXX) $(CFLAGS) -c lib/matrix.cpp -o lib/matrix.o
 
 clean:
 	rm -f $(OBJS) $(TARGET)
