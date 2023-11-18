@@ -4,6 +4,7 @@
 #include "lib/matrix.h"
 #include <iostream>
 #include <vector>
+#include <limits>
 
 namespace tiele {
     /// @brief add two matricies
@@ -54,7 +55,7 @@ namespace tiele {
 
     uint32_t matrix_rank(const Matrix& matrix);
 
-
+    double det(const Matrix& matrix);
 }
 
 #endif

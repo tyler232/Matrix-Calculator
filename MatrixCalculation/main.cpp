@@ -13,9 +13,12 @@ int main() {
     std::vector<std::vector<double>> data_b = {{2},
                                                {4},
                                                {7}};
+    std::vector<std::vector<double>> data_a = {{2, -2},
+                                               {4, 3}};
     tiele::Matrix matrix_A(data_A);
     tiele::Matrix matrix_B(data_B);
     tiele::Matrix matrix_b(data_b);
+    tiele::Matrix matrix_a(data_a);
 
     tiele::Matrix matrix_C = tiele::addition(matrix_A, matrix_B);
     std::cout << matrix_C << std::endl;
@@ -47,6 +50,10 @@ int main() {
 
     int r = tiele::matrix_rank(matrix_B);
     std::cout << r << std::endl;
+    std::cout << std::endl;
+
+    double d = tiele::det(matrix_a);
+    std::cout << d << std::endl;
     std::cout << std::endl;
     return 0;
 }

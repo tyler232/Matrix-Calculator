@@ -206,6 +206,39 @@ namespace tiele {
         }
         return rank;
     }
+
+    double det(const Matrix& matrix) {
+        // Must be a square matrix
+        // 1 x 1 matrix return self
+        if (matrix.getRowSize() != matrix.getColSize()) {
+            std::cerr << "Input is not a square matrix" << std::endl;
+            return std::numeric_limits<double>::max();
+        } else if (matrix.getRowSize() == 1) return matrix.getValue(0, 0);
+
+        double determinant = 0;
+
+        for (uint32_t col = 0; col < matrix.getColSize(); ++col) {
+            // Calculate the minor matrix det by excluding the current row and column
+            Matrix minor_matrix(matrix.getRowSize() - 1, matrix.getColSize() - 1);
+
+            for (uint32_t i = 1; i < matrix.getRowSize(); ++i) {
+                for (uint32_t j = 0; j < matrix.getColSize(); ++j) {
+                    if (j < col) {
+                        minor_matrix.setValue(i - 1, j, matrix.getValue(i, j));
+                    } else if (j > col) {
+                        minor_matrix.setValue(i - 1, j - 1, matrix.getValue(i, j));
+                    }
+                }
+            }
+
+            // Recursive call to calculate det of rest minor matrix
+            double minor_determinant = det(minor_matrix);
+            determinant += ((col % 2 == 0) ? 1 : -1) * matrix.getValue(0, col) * minor_determinant;
+        }
+
+        return determinant;
+    }
+
 }
 
 
