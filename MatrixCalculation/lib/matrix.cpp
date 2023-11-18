@@ -109,7 +109,7 @@ namespace tiele {
         return os;
     }
 
-    // Get Matrix Transpose
+    // Get Matrix Transpose (Self)
     void Matrix::transpose() {
         std::swap(row_size, col_size);
         for (uint32_t i = 0; i < row_size; ++i) {

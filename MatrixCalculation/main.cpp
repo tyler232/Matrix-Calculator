@@ -22,5 +22,8 @@ int main() {
     tiele::Matrix matrix_E = tiele::multiplication(matrix_A, matrix_B);
     std::cout << matrix_E << std::endl;
     std::cout << std::endl;
+    tiele::Matrix matrix_F = tiele::transpose(matrix_A);
+    std::cout << matrix_F << std::endl;
+    std::cout << std::endl;
     return 0;
 }

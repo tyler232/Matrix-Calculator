@@ -15,6 +15,11 @@ namespace tiele {
     // Matrix multiplication
     Matrix multiplication(const Matrix& matrix1, const Matrix& matrix2);
 
+    // Matrix Transpose
+    Matrix transpose(const Matrix& matrix);
+
+    
+
 }
 
 #endif

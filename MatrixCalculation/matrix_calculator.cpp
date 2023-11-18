@@ -64,5 +64,16 @@ namespace tiele {
         return result;
     }
 
+    Matrix transpose(const Matrix& matrix) {
+        Matrix result(matrix.getColSize(), matrix.getRowSize());
+
+        for (uint32_t i = 0; i < matrix.getRowSize(); ++i) {
+            for (uint32_t j = 0; j < matrix.getColSize(); ++j) {
+                result.setValue(j, i, matrix.getValue(i, j));
+            }
+        }
+
+        return result;
+    }
     
 }
