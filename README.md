@@ -15,9 +15,13 @@ Transpose
 
 Matrix Inversion
 
+REF
+
 RREF
 
 Matrix Solve
+
+Matrix Rank
 
 ## Coming Soon
 
@@ -38,7 +42,5 @@ Normalization
 Condition
 
 Determinant
-
-Rank
 
 Trace

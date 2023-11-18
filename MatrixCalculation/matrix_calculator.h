@@ -49,6 +49,12 @@ namespace tiele {
     /// @param matrix 
     /// @return RREF of inputted matrix
     Matrix reduced_row_echelon(const Matrix& matrix);
+
+    Matrix row_echelon_form(const Matrix& matrix);
+
+    uint32_t matrix_rank(const Matrix& matrix);
+
+
 }
 
 #endif

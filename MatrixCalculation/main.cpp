@@ -44,5 +44,9 @@ int main() {
     tiele::Matrix matrix_J = tiele::reduced_row_echelon(matrix_B);
     std::cout << matrix_J << std::endl;
     std::cout << std::endl;
+
+    int r = tiele::matrix_rank(matrix_B);
+    std::cout << r << std::endl;
+    std::cout << std::endl;
     return 0;
 }
