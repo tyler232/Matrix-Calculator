@@ -37,5 +37,8 @@ int main() {
 
     tiele::Matrix matrix_D(matrix_C);
     std::cout << matrix_D << std::endl;
+
+    matrix_A.swapRows(0, 2);
+    std::cout << matrix_A << std::endl;
     return 0;
 }

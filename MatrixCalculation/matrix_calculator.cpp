@@ -75,5 +75,13 @@ namespace tiele {
 
         return result;
     }
-    
+
+    Matrix identity(u_int32_t size) {
+        Matrix identity(size, size);
+        for (uint32_t i = 0; i < size; ++i) {
+            identity.setValue(i, i, 1.0);
+        }
+        return identity;
+    }
+
 }

@@ -18,7 +18,8 @@ namespace tiele {
     // Matrix Transpose
     Matrix transpose(const Matrix& matrix);
 
-    
+    // Identity Matrix
+    Matrix identity(uint32_t size);
 
 }
 

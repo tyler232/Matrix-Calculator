@@ -198,6 +198,14 @@ namespace tiele {
         return result;
     }
 
+    void Matrix::swapRows(uint32_t row1, uint32_t row2) {
+        if (row1 < row_size && row2 < row_size && row1 != row2) {
+            std::swap(data[row1], data[row2]);
+            return;
+        }
+        std::cerr << "Invalid row indices for swap." << std::endl;
+    }
+
     void Matrix::_copy(const Matrix& other) {
         row_size = other.row_size;
         col_size = other.col_size;

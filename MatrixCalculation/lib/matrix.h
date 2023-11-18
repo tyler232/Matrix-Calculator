@@ -41,6 +41,7 @@ namespace tiele {
         void setValue(uint32_t row, uint32_t col, double value);
 
         void transpose();
+        void swapRows(uint32_t row1, uint32_t row2);
 
         // to_string
         std::string to_string() const;
