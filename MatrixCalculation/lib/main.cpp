@@ -27,5 +27,9 @@ int main() {
     std::cout << matrix_A + matrix_B << std::endl;
     std::cout << matrix_A - matrix_B << std::endl;
     std::cout << matrix_A * matrix_B << std::endl;
+
+    double scalar = 2.3;
+    std::cout << matrix_A * scalar << std::endl;
+    std::cout << scalar * matrix_A << std::endl;
     return 0;
 }

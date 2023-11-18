@@ -40,13 +40,25 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Matrix& matrix);
 
     // overload plus operator
+    // C = A + B
     Matrix operator+(const Matrix& other) const;
 
     // overload minus operator
+    // C = A - B
     Matrix operator-(const Matrix& rhs) const;
 
     // overload multiplication calculator for Matrix-Matrix multiplication
+    // C = A * B
+    // D = B * A
     Matrix operator*(const Matrix& rhs) const;
+
+    // overload multiplication calculator for Scalar-Matrix multiplication
+    // B = A * c
+    Matrix operator*(double rhs_scalar) const;
+
+    // overload multiplication calculator for Scalar-Matrix multiplication
+    // B = c * A
+    friend Matrix operator*(double lhs_scalar, const Matrix& rhs_matrix);
 };
 
 #endif
