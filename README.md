@@ -15,12 +15,11 @@ Transpose
 
 Matrix Inversion
 
-## Coming Soon
-REF
-
 RREF
 
 Matrix Solve
+
+## Coming Soon
 
 Eigenvalue + Eigenvector
 
