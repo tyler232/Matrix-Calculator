@@ -5,16 +5,16 @@
 #include <iostream>
 #include <vector>
 
-class MatrixCalculator {
-public:
+namespace tiele {
     // Matrix addition
-    static Matrix addition(const Matrix& matrix1, const Matrix& matrix2);
+    Matrix addition(const Matrix& matrix1, const Matrix& matrix2);
 
     // Matrix subtraction
-    static Matrix subtraction(const Matrix& matrix1, const Matrix& matrix2);
+    Matrix subtraction(const Matrix& matrix1, const Matrix& matrix2);
 
     // Matrix multiplication
-    static Matrix multiplication(const Matrix& matrix1, const Matrix& matrix2);
-};
+    Matrix multiplication(const Matrix& matrix1, const Matrix& matrix2);
+
+}
 
 #endif

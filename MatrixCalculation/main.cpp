@@ -10,17 +10,17 @@ int main() {
     std::vector<std::vector<double>> data_B = {{7, 1, 6},
                                                {2, 4, 8},
                                                {7, 3, 8}};
-    Matrix matrix_A(data_A);
-    Matrix matrix_B(data_B);
+    tiele::Matrix matrix_A(data_A);
+    tiele::Matrix matrix_B(data_B);
 
-    MatrixCalculator calc;
-    Matrix matrix_C = calc.addition(matrix_A, matrix_B);
-    matrix_C.print();
+    tiele::Matrix matrix_C = tiele::addition(matrix_A, matrix_B);
+    std::cout << matrix_C << std::endl;
     std::cout << std::endl;
-    Matrix matrix_D = calc.subtraction(matrix_A, matrix_B);
-    matrix_D.print();
+    tiele::Matrix matrix_D = tiele::subtraction(matrix_A, matrix_B);
+    std::cout << matrix_D << std::endl;
     std::cout << std::endl;
-    Matrix matrix_E = calc.multiplication(matrix_A, matrix_B);
-    matrix_E.print();
+    tiele::Matrix matrix_E = tiele::multiplication(matrix_A, matrix_B);
+    std::cout << matrix_E << std::endl;
+    std::cout << std::endl;
     return 0;
 }

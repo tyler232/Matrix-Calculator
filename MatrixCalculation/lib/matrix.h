@@ -5,60 +5,63 @@
 #include <vector>
 #include <sstream>
 
-class Matrix {
-private:
-    std::vector<std::vector<double>> data;
-    uint32_t row_size;
-    uint32_t col_size;
+namespace tiele {
+    class Matrix {
+    private:
+        std::vector<std::vector<double>> data;
+        uint32_t row_size;
+        uint32_t col_size;
 
-public:
-    // default constructor
-    Matrix() = default;
+    public:
+        // default constructor
+        Matrix() = default;
 
-    // constructors
-    Matrix(uint32_t rows, uint32_t cols);
-    Matrix(std::vector<std::vector<double>> start_data);
+        // constructors
+        Matrix(uint32_t rows, uint32_t cols);
+        Matrix(std::vector<std::vector<double>> start_data);
 
-    // Getters
-    uint32_t getRowSize() const;
+        // Getters
+        uint32_t getRowSize() const;
 
-    uint32_t getColSize() const;
+        uint32_t getColSize() const;
 
-    double getValue(uint32_t row, uint32_t col) const;
+        double getValue(uint32_t row, uint32_t col) const;
 
-    // Setters
-    void setRowSize(uint32_t new_row_size);
-    void setColSize(uint32_t new_col_size);
-    void setValue(uint32_t row, uint32_t col, double value);
+        // Setters
+        void setRowSize(uint32_t new_row_size);
+        void setColSize(uint32_t new_col_size);
+        void setValue(uint32_t row, uint32_t col, double value);
 
-    void transpose();
+        void transpose();
 
-    // to_string
-    std::string to_string() const;
+        // to_string
+        std::string to_string() const;
 
-    // overload insertion operator
-    friend std::ostream& operator<<(std::ostream& os, const Matrix& matrix);
+        // overload insertion operator
+        friend std::ostream& operator<<(std::ostream& os, const Matrix& matrix);
 
-    // overload plus operator
-    // C = A + B
-    Matrix operator+(const Matrix& other) const;
+        // overload plus operator
+        // C = A + B
+        Matrix operator+(const Matrix& other) const;
 
-    // overload minus operator
-    // C = A - B
-    Matrix operator-(const Matrix& rhs) const;
+        // overload minus operator
+        // C = A - B
+        Matrix operator-(const Matrix& rhs) const;
 
-    // overload multiplication calculator for Matrix-Matrix multiplication
-    // C = A * B
-    // D = B * A
-    Matrix operator*(const Matrix& rhs) const;
+        // overload multiplication calculator for Matrix-Matrix multiplication
+        // C = A * B
+        // D = B * A
+        Matrix operator*(const Matrix& rhs) const;
 
-    // overload multiplication calculator for Scalar-Matrix multiplication
-    // B = A * c
-    Matrix operator*(double rhs_scalar) const;
+        // overload multiplication calculator for Scalar-Matrix multiplication
+        // B = A * c
+        Matrix operator*(double rhs_scalar) const;
 
-    // overload multiplication calculator for Scalar-Matrix multiplication
-    // B = c * A
-    friend Matrix operator*(double lhs_scalar, const Matrix& rhs_matrix);
-};
+        // overload multiplication calculator for Scalar-Matrix multiplication
+        // B = c * A
+        friend Matrix operator*(double lhs_scalar, const Matrix& rhs_matrix);
+    };
+
+}
 
 #endif
