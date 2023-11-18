@@ -51,12 +51,25 @@ namespace tiele {
     /// @return RREF of inputted matrix
     Matrix reduced_row_echelon(const Matrix& matrix);
 
+    /// @brief  find Row Echelon form 
+    /// @param matrix 
+    /// @return REF of inputted matrix
     Matrix row_echelon_form(const Matrix& matrix);
 
+    /// @brief find rank of input matrix
+    /// @param matrix 
+    /// @return rank
     uint32_t matrix_rank(const Matrix& matrix);
 
+    /// @brief  get the determinant of the matrix inputted using recursion
+    /// @param matrix 
+    /// @return determinant of matrix
     double det(const Matrix& matrix);
 
+
+    /// @brief get the trace of matrix (sum of the main diagnol)
+    /// @param matrix 
+    /// @return trace(sum of the main diagnol)
     double trace(const Matrix& matrix);
 }
 
