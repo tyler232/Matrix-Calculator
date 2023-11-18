@@ -59,5 +59,9 @@ int main() {
     double t = tiele::trace(matrix_A);
     std::cout << t << std::endl;
     std::cout << std::endl;
+
+    double n = tiele::norm(matrix_A, std::numeric_limits<int>::infinity());
+    std::cout << "Norm " << n << std::endl;
+    std::cout << std::endl;
     return 0;
 }

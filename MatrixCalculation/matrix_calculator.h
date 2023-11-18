@@ -71,6 +71,12 @@ namespace tiele {
     /// @param matrix 
     /// @return trace(sum of the main diagnol)
     double trace(const Matrix& matrix);
+
+    /// @brief get the norm of matrix (1, 2 or infinity) degree avalible
+    /// @param matrix 
+    /// @param degree
+    /// @return matrix norm with given degree
+    double norm(const Matrix& matrix, uint32_t degree);
 }
 
 #endif

@@ -251,6 +251,46 @@ namespace tiele {
         return trace;
     }
 
+    double norm(const Matrix& matrix, uint32_t degree) {
+        if (degree != 1 && degree != 2 && 
+            degree != std::numeric_limits<int>::infinity()) {
+            std::cerr << "degree can only be 1, 2 or inf" << std::endl;
+            return std::numeric_limits<double>::max();;
+        }
+
+        double norm = 0.0;
+
+        // for degree 1 it's the max of column sum
+        if (degree == 1) {
+            for (uint32_t j = 0; j < matrix.getColSize(); ++j) {
+                double col_sum = 0;
+                for (uint32_t i = 0; i < matrix.getRowSize(); ++i) {
+                    col_sum += std::abs(matrix.getValue(i, j));
+                }
+                norm = std::max(norm, col_sum);
+            }
+        } else if (degree == 2) {
+            // if degree 2 it's Frobenius norm
+            for (uint32_t i = 0; i < matrix.getRowSize(); ++i) {
+                for (uint32_t j = 0; j < matrix.getColSize(); ++j) {
+                    norm += std::pow(matrix.getValue(i, j), 2);
+                }
+            }
+            norm = std::sqrt(norm);
+        } else if (degree == std::numeric_limits<int>::infinity()) {
+            // for inf-norm it's max or row sum
+            for (uint32_t i = 0; i < matrix.getRowSize(); ++i) {
+                double row_sum = 0;
+                for (uint32_t j = 0; j < matrix.getColSize(); ++j) {
+                    row_sum += std::abs(matrix.getValue(i, j));
+                }
+                norm = std::max(norm, row_sum);
+            }
+        }
+
+        return norm;
+    }
+
 }
 
 

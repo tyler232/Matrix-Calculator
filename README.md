@@ -27,6 +27,8 @@ Determinant
 
 Trace
 
+Norm
+
 ## Coming Soon
 
 Eigenvalue + Eigenvector
@@ -40,7 +42,5 @@ SVD
 Inner Product
 
 Outer Product
-
-Normalization
 
 Condition
