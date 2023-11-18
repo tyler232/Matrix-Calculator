@@ -14,6 +14,7 @@ namespace tiele {
 
         void _copy(const Matrix& other);
 
+
     public:
         // default constructor
         Matrix() = default;
@@ -42,6 +43,7 @@ namespace tiele {
 
         void transpose();
         void swapRows(uint32_t row1, uint32_t row2);
+        uint32_t findPivotRow(uint32_t curr_row, uint32_t col);
 
         // to_string
         std::string to_string() const;

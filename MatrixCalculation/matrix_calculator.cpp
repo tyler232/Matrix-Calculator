@@ -99,16 +99,16 @@ namespace tiele {
         // Apply Gaussian elimination with partial pivoting
         for (uint32_t i = 0; i < original.getRowSize(); ++i) {
             // Find pivot row
-            uint32_t pivotRow = i;
+            uint32_t pivot_row = i;
             for (uint32_t j = i + 1; j < original.getRowSize(); ++j) {
-                if (std::abs(original.getValue(j, i)) > std::abs(original.getValue(pivotRow, i))) {
-                    pivotRow = j;
+                if (std::abs(original.getValue(j, i)) > std::abs(original.getValue(pivot_row, i))) {
+                    pivot_row = j;
                 }
             }
 
             // Swap rows to make pivot element the largest
-            original.swapRows(i, pivotRow);
-            identity.swapRows(i, pivotRow);
+            original.swapRows(i, pivot_row);
+            identity.swapRows(i, pivot_row);
 
             // Make original Matrix an identity matrix, first make diagnol to 1
             double pivot = original.getValue(i, i);
@@ -134,5 +134,34 @@ namespace tiele {
     Matrix solve(const Matrix& lhs_matrix, const Matrix& rhs_matrix) {
         return (inverse(lhs_matrix) * rhs_matrix);
     }
+
+    Matrix reduced_row_echelon(const Matrix& matrix) {
+        Matrix rref(matrix);
+        uint32_t curr_col = 0;
+
+        for (uint32_t i = 0; i < rref.getRowSize(); ++i) {
+            uint32_t pivot_row = rref.findPivotRow(i, curr_col);
+
+            if (rref.getValue(pivot_row, curr_col) != 0) {
+                rref.swapRows(i, pivot_row);
+                double pivotElement = rref.getValue(i, curr_col);
+                for (uint32_t j = i; j < rref.getColSize(); ++j) {
+                    rref.setValue(i, j, rref.getValue(i, j) / pivotElement);
+                }
+                for (uint32_t k = 0; k < rref.getRowSize(); ++k) {
+                    if (k != i) {
+                        double factor = rref.getValue(k, curr_col);
+                        for (uint32_t j = i; j < rref.getColSize(); ++j) {
+                            rref.setValue(k, j, rref.getValue(k, j) - factor * rref.getValue(i, j));
+                        }
+                    }
+                }
+                curr_col++;
+            }
+        }
+
+        return rref;
+    }
 }
+
 

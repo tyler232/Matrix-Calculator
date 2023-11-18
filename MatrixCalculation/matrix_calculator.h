@@ -6,27 +6,49 @@
 #include <vector>
 
 namespace tiele {
-    // Matrix addition
+    /// @brief add two matricies
+    /// @param matrix1 
+    /// @param matrix2 
+    /// @return result of addition
     Matrix addition(const Matrix& matrix1, const Matrix& matrix2);
 
-    // Matrix subtraction
+    /// @brief subtract two matricies
+    /// @param matrix1 
+    /// @param matrix2 
+    /// @return result of subtraction
     Matrix subtraction(const Matrix& matrix1, const Matrix& matrix2);
 
-    // Matrix multiplication
+    /// @brief multiply two matricies
+    /// @param matrix1 
+    /// @param matrix2 
+    /// @return result of multiplication
     Matrix multiplication(const Matrix& matrix1, const Matrix& matrix2);
 
-    // Matrix Transpose
+    /// @brief transpose a matrix and return a copy of it
+    /// @param matrix 
+    /// @return transpose of a matrix
     Matrix transpose(const Matrix& matrix);
 
-    // Identity Matrix
+    /// @brief return a identity matrix of given size
+    /// @param size 
+    /// @return identity matrix
     Matrix identity(uint32_t size);
 
-    // Inverse Matrix
+    /// @brief get the inverse of input matrix
+    /// @param matrix 
+    /// @return a copy of inverse of original matrix
     Matrix inverse(const Matrix& matrix);
 
-    // Solve Matrix
-    // Ax = b solve for x
+    /// @brief Solve for Matrix (Ax = b solve for x)
+    /// @param lhs_matrix (A)
+    /// @param rhs_matrix (b)
+    /// @return solved matrix (x)
     Matrix solve(const Matrix& lhs_matrix, const Matrix& rhs_matrix);
+
+    /// @brief find Reduced Row Echelon form
+    /// @param matrix 
+    /// @return RREF of inputted matrix
+    Matrix reduced_row_echelon(const Matrix& matrix);
 }
 
 #endif

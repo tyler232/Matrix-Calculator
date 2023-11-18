@@ -212,4 +212,14 @@ namespace tiele {
         col_size = other.col_size;
         data = other.data;
     }
+
+    uint32_t Matrix::findPivotRow(uint32_t curr_row, uint32_t col) {
+        uint32_t pivot_row = curr_row;
+        for (uint32_t j = curr_row + 1; j < row_size; ++j) {
+            if (std::abs(data[j][col]) > std::abs(data[pivot_row][col])) {
+                pivot_row = j;
+            }
+        }
+        return pivot_row;
+    }
 }

@@ -7,9 +7,9 @@ int main() {
     std::vector<std::vector<double>> data_A = {{0, 1, 4},
                                                {2, 3, 6},
                                                {0, 5, 10}};
-    std::vector<std::vector<double>> data_B = {{7, 1, 6},
-                                               {2, 4, 8},
-                                               {7, 3, 8}};
+    std::vector<std::vector<double>> data_B = {{7, 1, 6, 4},
+                                               {2, 4, 8, 3},
+                                               {7, 3, 8, -1.3}};
     std::vector<std::vector<double>> data_b = {{2},
                                                {4},
                                                {7}};
@@ -39,6 +39,10 @@ int main() {
 
     tiele::Matrix matrix_I = tiele::solve(matrix_A, matrix_b);
     std::cout << matrix_I << std::endl;
+    std::cout << std::endl;
+
+    tiele::Matrix matrix_J = tiele::reduced_row_echelon(matrix_B);
+    std::cout << matrix_J << std::endl;
     std::cout << std::endl;
     return 0;
 }
