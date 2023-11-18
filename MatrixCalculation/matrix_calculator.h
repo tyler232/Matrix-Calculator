@@ -76,7 +76,14 @@ namespace tiele {
     /// @param matrix 
     /// @param degree
     /// @return matrix norm with given degree
+    ///// Second Norm Subject to change after Eigen Value calculation
     double norm(const Matrix& matrix, uint32_t degree);
+
+    /// @brief get the condition of matrix(1, 2 or infinity) degree avalible
+    /// @param matrix 
+    /// @param degree 
+    /// @return matrix norm with given degree
+    double cond(const Matrix& matrix, int degree);
 }
 
 #endif

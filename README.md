@@ -27,7 +27,9 @@ Determinant
 
 Trace
 
-Norm
+Norm (Subject to change after finish Eigenvalue function for 2-norm)
+
+Condition
 
 ## Coming Soon
 
@@ -42,5 +44,3 @@ SVD
 Inner Product
 
 Outer Product
-
-Condition

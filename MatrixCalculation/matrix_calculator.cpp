@@ -212,7 +212,7 @@ namespace tiele {
         // 1 x 1 matrix return self
         if (matrix.getRowSize() != matrix.getColSize()) {
             std::cerr << "Input is not a square matrix" << std::endl;
-            return std::numeric_limits<double>::max();
+            return std::numeric_limits<double>::quiet_NaN();
         } else if (matrix.getRowSize() == 1) return matrix.getValue(0, 0);
 
         double determinant = 0;
@@ -242,7 +242,7 @@ namespace tiele {
     double trace(const Matrix& matrix) {
         if (matrix.getRowSize() != matrix.getColSize()) {
             std::cerr << "Input is not a square matrix" << std::endl;
-            return std::numeric_limits<double>::max();
+            return std::numeric_limits<double>::quiet_NaN();
         }
         double trace = 0;
         for (uint32_t i = 0; i < matrix.getRowSize(); ++i) {
@@ -255,7 +255,7 @@ namespace tiele {
         if (degree != 1 && degree != 2 && 
             degree != std::numeric_limits<int>::infinity()) {
             std::cerr << "degree can only be 1, 2 or inf" << std::endl;
-            return std::numeric_limits<double>::max();;
+            return std::numeric_limits<double>::quiet_NaN();
         }
 
         double norm = 0.0;
@@ -270,7 +270,7 @@ namespace tiele {
                 norm = std::max(norm, col_sum);
             }
         } else if (degree == 2) {
-            // if degree 2 it's Frobenius norm
+            // if degree 2 it's Frobenius norm (Subject to change)
             for (uint32_t i = 0; i < matrix.getRowSize(); ++i) {
                 for (uint32_t j = 0; j < matrix.getColSize(); ++j) {
                     norm += std::pow(matrix.getValue(i, j), 2);
@@ -289,6 +289,27 @@ namespace tiele {
         }
 
         return norm;
+    }
+
+    double cond(const Matrix& matrix, int degree) {
+        if (matrix.getRowSize() != matrix.getColSize()) {
+            std::cerr << "Square matrix needed" << std::endl;
+            return std::numeric_limits<double>::quiet_NaN();
+        }
+        double matrix_norm = norm(matrix, degree);
+
+        // Check if the matrix is singular or not
+        if (std::abs(det(matrix)) < std::numeric_limits<double>::epsilon()) {
+            return std::numeric_limits<double>::infinity();
+        }
+
+        // Get inverse matrix norm
+        Matrix inv_matrix = inverse(matrix);
+        double inv_matrix_norm = norm(inv_matrix, degree);
+
+        // Cond(A) = ||A^-1||*||A||
+        double cond = inv_matrix_norm * matrix_norm;
+        return cond;
     }
 
 }

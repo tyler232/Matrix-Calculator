@@ -63,5 +63,9 @@ int main() {
     double n = tiele::norm(matrix_A, std::numeric_limits<int>::infinity());
     std::cout << "Norm " << n << std::endl;
     std::cout << std::endl;
+
+    double c = tiele::cond(matrix_A, std::numeric_limits<int>::infinity());
+    std::cout << "Cond " << c << std::endl;
+    std::cout << std::endl;
     return 0;
 }
