@@ -84,4 +84,51 @@ namespace tiele {
         return identity;
     }
 
+    Matrix inverse(const Matrix& matrix) {
+        if (matrix.getRowSize() != matrix.getColSize()) {
+            std::cerr << "Input is not a square matrix" << std::endl;
+            return Matrix();
+        }
+
+        // Copy original matrix into original
+        Matrix original = matrix;
+
+        // Identity matrix
+        Matrix identity = tiele::identity(matrix.getRowSize());
+
+        // Apply Gaussian elimination with partial pivoting
+        for (uint32_t i = 0; i < original.getRowSize(); ++i) {
+            // Find pivot row
+            uint32_t pivotRow = i;
+            for (uint32_t j = i + 1; j < original.getRowSize(); ++j) {
+                if (std::abs(original.getValue(j, i)) > std::abs(original.getValue(pivotRow, i))) {
+                    pivotRow = j;
+                }
+            }
+
+            // Swap rows to make pivot element the largest
+            original.swapRows(i, pivotRow);
+            identity.swapRows(i, pivotRow);
+
+            // Make original Matrix an identity matrix, first make diagnol to 1
+            double pivot = original.getValue(i, i);
+            for (uint32_t j = 0; j < original.getColSize(); ++j) {
+                original.setValue(i, j, original.getValue(i, j) / pivot);
+                identity.setValue(i, j, identity.getValue(i, j) / pivot);
+            }
+
+            // Next eliminate non-zero elements in the column
+            for (uint32_t j = 0; j < original.getRowSize(); ++j) {
+                if (j != i) {
+                    double factor = original.getValue(j, i);
+                    for (uint32_t k = 0; k < original.getColSize(); ++k) {
+                        original.setValue(j, k, original.getValue(j, k) - factor * original.getValue(i, k));
+                        identity.setValue(j, k, identity.getValue(j, k) - factor * identity.getValue(i, k));
+                    }
+                }
+            }
+        }
+        return identity;
+    }
 }
+

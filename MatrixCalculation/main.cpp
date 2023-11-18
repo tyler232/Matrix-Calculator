@@ -28,5 +28,9 @@ int main() {
     tiele::Matrix matrix_G = tiele::identity(3);
     std::cout << matrix_G << std::endl;
     std::cout << std::endl;
+
+    tiele::Matrix matrix_H = tiele::inverse(matrix_A);
+    std::cout << matrix_H << std::endl;
+    std::cout << std::endl;
     return 0;
 }

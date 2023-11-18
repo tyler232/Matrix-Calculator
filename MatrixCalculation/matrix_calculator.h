@@ -21,6 +21,12 @@ namespace tiele {
     // Identity Matrix
     Matrix identity(uint32_t size);
 
+    // Inverse Matrix
+    Matrix inverse(const Matrix& matrix);
+
+    // Solve Matrix
+    // Ax = b solve for x
+    //Matrix solve(const Matrix& lhs_matrix, const Matrix& rhs_matrix);
 }
 
 #endif
