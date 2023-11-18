@@ -43,7 +43,10 @@ public:
     Matrix operator+(const Matrix& other) const;
 
     // overload minus operator
-    Matrix operator-(const Matrix& other) const;
+    Matrix operator-(const Matrix& rhs) const;
+
+    // overload multiplication calculator for Matrix-Matrix multiplication
+    Matrix operator*(const Matrix& rhs) const;
 };
 
 #endif

@@ -26,6 +26,6 @@ int main() {
     Matrix matrix_B(data_2);
     std::cout << matrix_A + matrix_B << std::endl;
     std::cout << matrix_A - matrix_B << std::endl;
-
+    std::cout << matrix_A * matrix_B << std::endl;
     return 0;
 }

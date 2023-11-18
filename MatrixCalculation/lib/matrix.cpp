@@ -136,3 +136,27 @@ Matrix Matrix::operator-(const Matrix& rhs) const {
     }
     return result;
 }
+
+// overload multiplication calculator for Matrix-Matrix multiplication
+Matrix Matrix::operator*(const Matrix& rhs) const {
+    if (col_size != rhs.row_size) {
+        std::cerr << "Incorrect Dimension for Multiplication" << std::endl;
+        return Matrix();
+    }
+        
+    // (a x b) * (b x c) = (a x c)
+    Matrix result(row_size, rhs.col_size);
+
+    for (uint32_t i = 0; i < row_size; ++i) {
+        for (uint32_t j = 0; j < rhs.col_size; ++j) {
+            double sum = 0;
+            for (uint32_t k = 0; k < col_size; ++k) {
+                sum += getValue(i, k) * rhs.getValue(k, j);
+            }
+            result.setValue(i, j, sum);
+        }
+    }
+
+    return result;
+}
+
