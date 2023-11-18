@@ -11,9 +11,15 @@ Scalar-Matrix Multiplication
 
 Matrix-Matrix Multiplication
 
+Transpose
+
 Matrix Inversion
 
 ## Coming Soon
+REF
+
+RREF
+
 Matrix Solve
 
 Eigenvalue + Eigenvector
