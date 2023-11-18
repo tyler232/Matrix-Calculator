@@ -75,17 +75,6 @@ void Matrix::setValue(uint32_t row, uint32_t col, double value) {
     std::cerr << "Invalid matrix indices." << std::endl;
 }
 
-void Matrix::print() const {
-    for (auto row : data) {
-        for (auto value : row) {
-            std::cout << value << " ";
-        }
-        std::cout << std::endl;
-    }
-    std::cout << "Rows: " << row_size << std::endl;
-    std::cout << "Cols: " << col_size << std::endl;
-}
-
 std::string Matrix::to_string() const {
     std::ostringstream oss;
 
@@ -114,4 +103,36 @@ void Matrix::transpose() {
             std::swap(data[i][j], data[j][i]);
         }
     }
+}
+
+Matrix Matrix::operator+(const Matrix& other) const {
+    if (row_size != other.row_size || col_size != other.col_size) {
+        std::cerr << "Two matrix have different dimension" << std::endl;
+        return Matrix();
+    }
+
+    Matrix result(row_size, col_size);
+
+    for (uint32_t i = 0; i < row_size; ++i) {
+        for (uint32_t j = 0; j < col_size; ++j) {
+            result.setValue(i, j, getValue(i, j) + other.getValue(i, j));
+        }
+    }
+    return result;
+}
+
+Matrix Matrix::operator-(const Matrix& rhs) const {
+    if (row_size != rhs.row_size || col_size != rhs.col_size) {
+        std::cerr << "Two matrix have different dimension" << std::endl;
+        return Matrix();
+    }
+
+    Matrix result(row_size, col_size);
+
+    for (uint32_t i = 0; i < row_size; ++i) {
+        for (uint32_t j = 0; j < col_size; ++j) {
+            result.setValue(i, j, getValue(i, j) - rhs.getValue(i, j));
+        }
+    }
+    return result;
 }

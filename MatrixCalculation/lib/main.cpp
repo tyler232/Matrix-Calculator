@@ -16,12 +16,16 @@ int main() {
     matrix.setColSize(2);
     std::cout << matrix << std::endl;
 
-    std::vector<std::vector<double>> data = {{0, 1, 4},
+    std::vector<std::vector<double>> data_1 = {{0, 1, 4},
                                              {2, 3, 6},
                                              {0, 5, 7}};
-    std::cout << "Here" << std::endl;
-    Matrix matrix_A(data);
-    std::cout << matrix_A << std::endl;
+    std::vector<std::vector<double>> data_2 = {{3, 4, 2},
+                                             {6, 2, 3},
+                                             {2, 7, 4}};
+    Matrix matrix_A(data_1);
+    Matrix matrix_B(data_2);
+    std::cout << matrix_A + matrix_B << std::endl;
+    std::cout << matrix_A - matrix_B << std::endl;
 
     return 0;
 }

@@ -38,5 +38,12 @@ public:
 
     // overload insertion operator
     friend std::ostream& operator<<(std::ostream& os, const Matrix& matrix);
+
+    // overload plus operator
+    Matrix operator+(const Matrix& other) const;
+
+    // overload minus operator
+    Matrix operator-(const Matrix& other) const;
 };
+
 #endif
