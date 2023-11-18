@@ -6,6 +6,13 @@ namespace tiele {
         }
     }
 
+    Matrix::Matrix(const Matrix& other) {
+        _copy(other);
+    }
+
+    Matrix::~Matrix() {
+    }
+
     Matrix::Matrix(std::vector<std::vector<double>> start_data) {
         data = start_data;
         row_size = start_data.size();
@@ -88,6 +95,13 @@ namespace tiele {
         oss << "Cols: " << col_size << std::endl;
 
         return oss.str();
+    }
+
+    Matrix& Matrix::operator=(const Matrix& other) {
+        if (this != &other) {
+            _copy(other);
+        }
+        return *this;
     }
 
     std::ostream& operator<<(std::ostream& os, const Matrix& matrix) {
@@ -182,5 +196,11 @@ namespace tiele {
         }
 
         return result;
+    }
+
+    void Matrix::_copy(const Matrix& other) {
+        row_size = other.row_size;
+        col_size = other.col_size;
+        data = other.data;
     }
 }

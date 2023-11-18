@@ -12,13 +12,21 @@ namespace tiele {
         uint32_t row_size;
         uint32_t col_size;
 
+        void _copy(const Matrix& other);
+
     public:
         // default constructor
         Matrix() = default;
 
+        // copy constructor
+        Matrix(const Matrix& other);
+
         // constructors
         Matrix(uint32_t rows, uint32_t cols);
         Matrix(std::vector<std::vector<double>> start_data);
+
+        // destructor
+        ~Matrix();
 
         // Getters
         uint32_t getRowSize() const;
@@ -36,6 +44,9 @@ namespace tiele {
 
         // to_string
         std::string to_string() const;
+
+        // overload assignment operator
+        Matrix& operator=(const Matrix& other);
 
         // overload insertion operator
         friend std::ostream& operator<<(std::ostream& os, const Matrix& matrix);

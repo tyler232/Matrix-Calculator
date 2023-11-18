@@ -31,5 +31,11 @@ int main() {
     double scalar = 2.3;
     std::cout << matrix_A * scalar << std::endl;
     std::cout << scalar * matrix_A << std::endl;
+
+    tiele::Matrix matrix_C = matrix_A;
+    std::cout << matrix_C << std::endl;
+
+    tiele::Matrix matrix_D(matrix_C);
+    std::cout << matrix_D << std::endl;
     return 0;
 }
