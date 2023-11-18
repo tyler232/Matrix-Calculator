@@ -130,5 +130,9 @@ namespace tiele {
         }
         return identity;
     }
+
+    Matrix solve(const Matrix& lhs_matrix, const Matrix& rhs_matrix) {
+        return (inverse(lhs_matrix) * rhs_matrix);
+    }
 }
 

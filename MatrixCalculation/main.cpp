@@ -10,8 +10,12 @@ int main() {
     std::vector<std::vector<double>> data_B = {{7, 1, 6},
                                                {2, 4, 8},
                                                {7, 3, 8}};
+    std::vector<std::vector<double>> data_b = {{2},
+                                               {4},
+                                               {7}};
     tiele::Matrix matrix_A(data_A);
     tiele::Matrix matrix_B(data_B);
+    tiele::Matrix matrix_b(data_b);
 
     tiele::Matrix matrix_C = tiele::addition(matrix_A, matrix_B);
     std::cout << matrix_C << std::endl;
@@ -31,6 +35,10 @@ int main() {
 
     tiele::Matrix matrix_H = tiele::inverse(matrix_A);
     std::cout << matrix_H << std::endl;
+    std::cout << std::endl;
+
+    tiele::Matrix matrix_I = tiele::solve(matrix_A, matrix_b);
+    std::cout << matrix_I << std::endl;
     std::cout << std::endl;
     return 0;
 }

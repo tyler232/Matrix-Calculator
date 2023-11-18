@@ -26,7 +26,7 @@ namespace tiele {
 
     // Solve Matrix
     // Ax = b solve for x
-    //Matrix solve(const Matrix& lhs_matrix, const Matrix& rhs_matrix);
+    Matrix solve(const Matrix& lhs_matrix, const Matrix& rhs_matrix);
 }
 
 #endif
