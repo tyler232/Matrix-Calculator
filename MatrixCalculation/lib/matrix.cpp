@@ -75,7 +75,7 @@ void Matrix::setValue(uint32_t row, uint32_t col, double value) {
     std::cerr << "Invalid matrix indices." << std::endl;
 }
 
- void Matrix::print() const {
+void Matrix::print() const {
     for (auto row : data) {
         for (auto value : row) {
             std::cout << value << " ";
@@ -84,6 +84,26 @@ void Matrix::setValue(uint32_t row, uint32_t col, double value) {
     }
     std::cout << "Rows: " << row_size << std::endl;
     std::cout << "Cols: " << col_size << std::endl;
+}
+
+std::string Matrix::to_string() const {
+    std::ostringstream oss;
+
+    for (auto row : data) {
+        for (auto value : row) {
+            oss << value << " ";
+        }
+        oss << std::endl;
+    }
+    oss << "Rows: " << row_size << std::endl;
+    oss << "Cols: " << col_size << std::endl;
+
+    return oss.str();
+}
+
+std::ostream& operator<<(std::ostream& os, const Matrix& matrix) {
+    os << matrix.to_string();
+    return os;
 }
 
 // Get Matrix Transpose

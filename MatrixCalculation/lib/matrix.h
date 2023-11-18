@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <sstream>
 
 class Matrix {
 private:
@@ -30,9 +31,12 @@ public:
     void setColSize(uint32_t new_col_size);
     void setValue(uint32_t row, uint32_t col, double value);
 
-    // Printer
-    void print() const;
-
     void transpose();
+
+    // to_string
+    std::string to_string() const;
+
+    // overload insertion operator
+    friend std::ostream& operator<<(std::ostream& os, const Matrix& matrix);
 };
 #endif
