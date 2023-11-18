@@ -239,6 +239,18 @@ namespace tiele {
         return determinant;
     }
 
+    double trace(const Matrix& matrix) {
+        if (matrix.getRowSize() != matrix.getColSize()) {
+            std::cerr << "Input is not a square matrix" << std::endl;
+            return std::numeric_limits<double>::max();
+        }
+        double trace = 0;
+        for (uint32_t i = 0; i < matrix.getRowSize(); ++i) {
+            trace += matrix.getValue(i, i);
+        }
+        return trace;
+    }
+
 }
 
 

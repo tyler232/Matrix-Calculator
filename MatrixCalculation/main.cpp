@@ -55,5 +55,9 @@ int main() {
     double d = tiele::det(matrix_a);
     std::cout << d << std::endl;
     std::cout << std::endl;
+
+    double t = tiele::trace(matrix_A);
+    std::cout << t << std::endl;
+    std::cout << std::endl;
     return 0;
 }

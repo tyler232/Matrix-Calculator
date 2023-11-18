@@ -23,6 +23,10 @@ Matrix Solve
 
 Matrix Rank
 
+Determinant
+
+Trace
+
 ## Coming Soon
 
 Eigenvalue + Eigenvector
@@ -40,7 +44,3 @@ Outer Product
 Normalization
 
 Condition
-
-Determinant
-
-Trace
