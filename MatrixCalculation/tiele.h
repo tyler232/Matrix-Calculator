@@ -50,7 +50,6 @@ namespace tiele {
     /// @return determinant of matrix
     double det(const Matrix& matrix);
 
-
     /// @brief get the trace of matrix (sum of the main diagnol)
     /// @param matrix 
     /// @return trace(sum of the main diagnol)
@@ -92,6 +91,8 @@ namespace tiele {
 
 
     double dotProduct(const Matrix& matrix1, const Matrix& matrix2);
+
+    double norm_frob(const Matrix& matrix); // Frobenius norm
 }
 
 #endif

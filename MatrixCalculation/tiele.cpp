@@ -190,9 +190,7 @@ namespace tiele {
             degree != std::numeric_limits<int>::infinity()) {
             throw std::invalid_argument("Input degree must be 1, 2 or infinite");
         }
-
-        double norm = 0.0;
-
+        double norm = 0;
         // for degree 1 it's the max of column sum
         if (degree == 1) {
             for (uint32_t j = 0; j < matrix.getColSize(); ++j) {
@@ -203,13 +201,15 @@ namespace tiele {
                 norm = std::max(norm, col_sum);
             }
         } else if (degree == 2) {
-            // if degree 2 it's Frobenius norm (Subject to change)
-            for (uint32_t i = 0; i < matrix.getRowSize(); ++i) {
-                for (uint32_t j = 0; j < matrix.getColSize(); ++j) {
-                    norm += std::pow(matrix.getValue(i, j), 2);
-                }
+            // if degree 2 it's singular norm
+            Matrix matrix_T = tiele::transpose(matrix);
+            std::vector<double> eigenvals = eigenvalues(matrix_T * matrix);
+            if (eigenvals.empty()) {
+                throw std::invalid_argument("Matrix is singular");
             }
-            norm = std::sqrt(norm);
+            // 2-norm is the sqrt of the largest eigenvalue
+            for (auto eigenval : eigenvals) eigenval = std::abs(eigenval);
+            norm = std::sqrt(*std::max_element(eigenvals.begin(), eigenvals.end()));
         } else if (degree == std::numeric_limits<int>::infinity()) {
             // for inf-norm it's max or row sum
             for (uint32_t i = 0; i < matrix.getRowSize(); ++i) {
@@ -256,7 +256,7 @@ namespace tiele {
                 double dot = dotProduct(Q.getColumn(i), A.getColumn(j));
                 v = v - dot * Q.getColumn(i);
             }
-            double normV = norm(v, 2);
+            double normV = norm_frob(v);
             if (normV < 1e-8) continue;
 
             // Q
@@ -276,7 +276,6 @@ namespace tiele {
     std::vector<double> eigenvalues(const Matrix& matrix, uint32_t iterations) {
         uint32_t size = matrix.getRowSize();
         Matrix A(matrix);
-
         // Apply QR decomposition
         for (uint32_t iter = 0; iter < iterations; ++iter) {
             double shift = A.getValue(size - 1, size - 1);
@@ -332,7 +331,15 @@ namespace tiele {
         return eig_vecs;
     }
     
-
+    double norm_frob(const Matrix& matrix) {
+        double norm = 0;
+        for (uint32_t i = 0; i < matrix.getRowSize(); ++i) {
+            for (uint32_t j = 0; j < matrix.getColSize(); ++j) {
+                    norm += std::pow(matrix.getValue(i, j), 2);
+            }
+        }
+        return std::sqrt(norm);
+    }
 }
 
 

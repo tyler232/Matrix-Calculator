@@ -27,7 +27,7 @@ Determinant
 
 Trace
 
-Norm (Subject to change after finish Eigenvalue function for 2-norm)
+Norm
 
 Condition
 

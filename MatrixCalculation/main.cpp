@@ -73,6 +73,9 @@ int main() {
 
     std::cout << tiele::eigenvalues(matrix_A)[2] << std::endl;
     std::cout << tiele::eigenvectors(matrix_A)[0] << std::endl;
-    
+
+    std::cout << std::endl;
+    std::cout << tiele::norm(matrix_A, 2) << std::endl;
+    std::cout << tiele::cond(matrix_A, 2) << std::endl;
     return 0;
 }
