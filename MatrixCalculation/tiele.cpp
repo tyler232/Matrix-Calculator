@@ -340,6 +340,27 @@ namespace tiele {
         }
         return std::sqrt(norm);
     }
+
+    std::pair<Matrix, Matrix> luDecomposition(const Matrix& matrix) {
+        if (matrix.getRowSize() != matrix.getColSize()) {
+            throw std::invalid_argument("Input matrix must be a square matrix");
+        }
+
+        uint32_t size = matrix.getRowSize();
+        Matrix L(size, size);
+        Matrix U = matrix;
+        for (uint32_t i = 0; i < size; ++i) {
+            L.setValue(i, i, 1.0);
+            for (uint32_t j = i + 1; j < size; ++j) {
+                double factor = U.getValue(j, i) / U.getValue(i, i);
+                L.setValue(j, i, factor);
+                for (uint32_t k = i; k < size; ++k) {
+                    U.setValue(j, k, U.getValue(j, k) - factor * U.getValue(i, k));
+                }
+            }
+        }
+        return {L, U};
+    }
 }
 
 

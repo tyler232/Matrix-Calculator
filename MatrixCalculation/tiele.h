@@ -98,6 +98,8 @@ namespace tiele {
     /// @param matrix2 v2
     /// @return dot product of v1 and v2
     double dotProduct(const Matrix& matrix1, const Matrix& matrix2);
+
+    std::pair<Matrix, Matrix> luDecomposition(const Matrix& matrix);
 }
 
 #endif

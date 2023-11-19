@@ -35,11 +35,9 @@ QR decomposition
 
 Eigenvalue + Eigenvector
 
-## Coming Soon
-
-Triangular
-
 LU decomposition
+
+## Coming Soon
 
 SVD
 

@@ -77,5 +77,9 @@ int main() {
     std::cout << std::endl;
     std::cout << tiele::norm(matrix_A, 2) << std::endl;
     std::cout << tiele::cond(matrix_A, 2) << std::endl;
+
+    std::cout << std::endl;
+    std::cout << tiele::luDecomposition(matrix_A).first << std::endl;
+    std::cout << tiele::luDecomposition(matrix_A).second << std::endl;
     return 0;
 }
