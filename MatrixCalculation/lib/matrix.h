@@ -75,6 +75,10 @@ namespace tiele {
         // overload multiplication calculator for Scalar-Matrix multiplication
         // B = c * A
         friend Matrix operator*(double lhs_scalar, const Matrix& rhs_matrix);
+
+        // overload division calculator for Scalar-Matrix multiplication
+        // B = A / c
+        Matrix operator/(double rhs_scalar) const;
     };
 
 }

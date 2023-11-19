@@ -323,20 +323,21 @@ namespace tiele {
     //     uint32_t size = matrix.getRowSize();
         
     //     // Perform Power iteration
-    //     std::vector<double> eigenvector(size, 1);   // start vector
+    //     std::vector<double> eigenvector_data(size, 1);
+    //     Matrix eigenvector(eigenvector_data);   // start vector
 
     //     for (uint32_t iteration = 0; iteration < max_iter; ++iteration) {
     //         // Multiply matrix with current eigenvector
     //         eigenvector = matrix * eigenvector;
 
     //         // Normalize the eigenvector
-    //         double norm = norm(eigenvector, 2);
+    //         double nm = norm(eigenvector, 2);
     //         for (uint32_t i = 0; i < size; ++i) {
-    //             eigenvector[i] /= norm;
+    //             eigenvector.setValue(i, eigenvector.getValue(0, i) / nm);
     //         }
 
     //         // Calculate the eigenvalue
-    //         double eigenvalue = eigenvector[0]; // Assuming the dominant eigenvalue
+    //         double eigenvalue = eigenvector.getValue(0, 0);
     //         // Check for convergence
     //         if (iteration > 0 && std::abs(eigenvalue - prevEigenvalue) < epsilon) {
     //             return { eigenvalue, eigenvector };

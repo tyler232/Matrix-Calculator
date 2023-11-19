@@ -43,7 +43,7 @@ int main() {
 
     tiele::Matrix vec({3, 2, 5});
     std::cout << vec << std::endl;
-
-    
+    std::cout << matrix_A << std::endl;
+    std::cout << matrix_A / 2 << std::endl;
     return 0;
 }

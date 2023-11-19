@@ -204,6 +204,16 @@ namespace tiele {
         return result;
     }
 
+    Matrix Matrix::operator/(double rhs_scalar) const {
+        Matrix result(row_size, col_size);
+        for (uint32_t i = 0; i < row_size; ++i) {
+            for (uint32_t j = 0; j < col_size; ++j) {
+                result.setValue(i, j, getValue(i, j) / rhs_scalar);
+            }
+        }
+        return result;
+    }
+
     void Matrix::swapRows(uint32_t row1, uint32_t row2) {
         if (row1 == row2) return;
         else if (row1 < row_size && row2 < row_size) {
