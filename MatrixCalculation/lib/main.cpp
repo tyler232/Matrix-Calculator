@@ -40,5 +40,10 @@ int main() {
 
     matrix_A.swapRows(0, 2);
     std::cout << matrix_A << std::endl;
+
+    tiele::Matrix vec({3, 2, 5});
+    std::cout << vec << std::endl;
+
+    
     return 0;
 }

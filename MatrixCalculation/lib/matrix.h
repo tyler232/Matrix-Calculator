@@ -25,6 +25,7 @@ namespace tiele {
         // constructors
         Matrix(uint32_t rows, uint32_t cols);
         Matrix(std::vector<std::vector<double>> start_data);
+        Matrix(std::vector<double> start_data);
 
         // destructor
         ~Matrix();

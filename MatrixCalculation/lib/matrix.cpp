@@ -19,6 +19,12 @@ namespace tiele {
         col_size = start_data[0].size();
     }
 
+    Matrix::Matrix(std::vector<double> start_data) {
+        data = {start_data};
+        row_size = 1;
+        col_size = start_data.size();
+    }
+
     uint32_t Matrix::getRowSize() const {
         return row_size;
     }

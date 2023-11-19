@@ -312,6 +312,44 @@ namespace tiele {
         return cond;
     }
 
+    // std::pair<double, Matrix> eig(const Matrix& matrix, 
+    //                                             double epsilon = 1e-9, 
+    //                                             uint32_t max_iter = 1e7) {
+    //     if (matrix.getRowSize() != matrix.getColSize()) {
+    //         std::cerr << "Input must be square matrix" << std::endl;
+    //         return { std::numeric_limits<double>::quiet_NaN(), Matrix() };
+    //     }
+
+    //     uint32_t size = matrix.getRowSize();
+        
+    //     // Perform Power iteration
+    //     std::vector<double> eigenvector(size, 1);   // start vector
+
+    //     for (uint32_t iteration = 0; iteration < max_iter; ++iteration) {
+    //         // Multiply matrix with current eigenvector
+    //         eigenvector = matrix * eigenvector;
+
+    //         // Normalize the eigenvector
+    //         double norm = norm(eigenvector, 2);
+    //         for (uint32_t i = 0; i < size; ++i) {
+    //             eigenvector[i] /= norm;
+    //         }
+
+    //         // Calculate the eigenvalue
+    //         double eigenvalue = eigenvector[0]; // Assuming the dominant eigenvalue
+    //         // Check for convergence
+    //         if (iteration > 0 && std::abs(eigenvalue - prevEigenvalue) < epsilon) {
+    //             return { eigenvalue, eigenvector };
+    //         }
+
+    //         // Save the eigenvalue for the next iteration
+    //         prevEigenvalue = eigenvalue;
+    //     }
+
+    //     std::cerr << "Power iteration did not converge within the specified number of iterations" << std::endl;
+    //     return { std::numeric_limits<double>::quiet_NaN(), {} }; // Return NaN for non-convergent cases
+    // }
+
 }
 
 
