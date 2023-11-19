@@ -15,7 +15,7 @@ namespace tiele {
     Matrix transpose(const Matrix& matrix);
 
     /// @brief return a identity matrix of given size
-    /// @param size 
+    /// @param size size of rows and cols
     /// @return identity matrix
     Matrix identity(uint32_t size);
 
@@ -57,14 +57,13 @@ namespace tiele {
 
     /// @brief get the norm of matrix (1, 2 or infinity) degree avalible
     /// @param matrix 
-    /// @param degree
+    /// @param degree degree of norm, enter 1, 2 or infinity
     /// @return matrix norm with given degree
-    ///// Second Norm Subject to change after Eigen Value calculation
     double norm(const Matrix& matrix, uint32_t degree);
 
     /// @brief get the condition of matrix(1, 2 or infinity) degree avalible
     /// @param matrix 
-    /// @param degree 
+    /// @param degree degree of norm, enter 1, 2 or infinity
     /// @return matrix norm with given degree
     double cond(const Matrix& matrix, int degree);
 
@@ -89,10 +88,16 @@ namespace tiele {
     /// @return vector that contains all the eigenvector
     std::vector<Matrix> eigenvectors(const Matrix& matrix, uint32_t iterations=1e3);
 
+    /// @brief Get the Frobenius norm
+    /// @param matrix 
+    /// @return Frobenius norm
+    double norm_frob(const Matrix& matrix);
 
+    /// @brief Dot product of 2 vectors
+    /// @param matrix1 v1
+    /// @param matrix2 v2
+    /// @return dot product of v1 and v2
     double dotProduct(const Matrix& matrix1, const Matrix& matrix2);
-
-    double norm_frob(const Matrix& matrix); // Frobenius norm
 }
 
 #endif
