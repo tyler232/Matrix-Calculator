@@ -23,8 +23,7 @@ namespace tiele {
 
     Matrix inverse(const Matrix& matrix) {
         if (matrix.getRowSize() != matrix.getColSize()) {
-            std::cerr << "Input is not a square matrix" << std::endl;
-            return Matrix();
+            throw std::invalid_argument("Input Matrix is not a square matrix");
         }
 
         // Copy original matrix into original
@@ -148,8 +147,7 @@ namespace tiele {
         // Must be a square matrix
         // 1 x 1 matrix return self
         if (matrix.getRowSize() != matrix.getColSize()) {
-            std::cerr << "Input is not a square matrix" << std::endl;
-            return std::numeric_limits<double>::quiet_NaN();
+            throw std::invalid_argument("Input Matrix is not a square matrix");
         } else if (matrix.getRowSize() == 1) return matrix.getValue(0, 0);
 
         double determinant = 0;
@@ -178,8 +176,7 @@ namespace tiele {
 
     double trace(const Matrix& matrix) {
         if (matrix.getRowSize() != matrix.getColSize()) {
-            std::cerr << "Input is not a square matrix" << std::endl;
-            return std::numeric_limits<double>::quiet_NaN();
+            throw std::invalid_argument("Input Matrix is not a square matrix");
         }
         double trace = 0;
         for (uint32_t i = 0; i < matrix.getRowSize(); ++i) {
@@ -191,8 +188,7 @@ namespace tiele {
     double norm(const Matrix& matrix, uint32_t degree) {
         if (degree != 1 && degree != 2 && 
             degree != std::numeric_limits<int>::infinity()) {
-            std::cerr << "degree can only be 1, 2 or inf" << std::endl;
-            return std::numeric_limits<double>::quiet_NaN();
+            throw std::invalid_argument("Input degree must be 1, 2 or infinite");
         }
 
         double norm = 0.0;
@@ -230,8 +226,7 @@ namespace tiele {
 
     double cond(const Matrix& matrix, int degree) {
         if (matrix.getRowSize() != matrix.getColSize()) {
-            std::cerr << "Square matrix needed" << std::endl;
-            return std::numeric_limits<double>::quiet_NaN();
+            throw std::invalid_argument("Input Matrix is not a square matrix");
         }
         double matrix_norm = norm(matrix, degree);
 

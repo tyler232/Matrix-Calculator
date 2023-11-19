@@ -19,15 +19,15 @@ int main() {
     tiele::Matrix matrix_b(data_b);
     tiele::Matrix matrix_a(data_a);
 
-    tiele::Matrix matrix_C = tiele::addition(matrix_A, matrix_B);
-    std::cout << matrix_C << std::endl;
-    std::cout << std::endl;
-    tiele::Matrix matrix_D = tiele::subtraction(matrix_A, matrix_B);
-    std::cout << matrix_D << std::endl;
-    std::cout << std::endl;
-    tiele::Matrix matrix_E = tiele::multiplication(matrix_A, matrix_B);
-    std::cout << matrix_E << std::endl;
-    std::cout << std::endl;
+    // tiele::Matrix matrix_C = tiele::addition(matrix_A, matrix_B);
+    // std::cout << matrix_C << std::endl;
+    // std::cout << std::endl;
+    // tiele::Matrix matrix_D = tiele::subtraction(matrix_A, matrix_B);
+    // std::cout << matrix_D << std::endl;
+    // std::cout << std::endl;
+    // tiele::Matrix matrix_E = tiele::multiplication(matrix_A, matrix_B);
+    // std::cout << matrix_E << std::endl;
+    // std::cout << std::endl;
     tiele::Matrix matrix_F = tiele::transpose(matrix_A);
     std::cout << matrix_F << std::endl;
     std::cout << std::endl;

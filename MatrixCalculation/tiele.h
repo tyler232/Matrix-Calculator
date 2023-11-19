@@ -69,14 +69,29 @@ namespace tiele {
     /// @return matrix norm with given degree
     double cond(const Matrix& matrix, int degree);
 
-    double dotProduct(const Matrix& matrix1, const Matrix& matrix2);
-
-
+    /// @brief get the QR decomposition of matrix
+    /// @param matrix 
+    /// @return matrix Q in first of the pair, matrix R in second of the pair
     std::pair<Matrix, Matrix> qrDecomposition(const Matrix& matrix);
 
+    /// @brief get the eigenvalue of input matrix
+    /// @param matrix 
+    /// @param iterations default set at 1000, more iteration = more precision
+    // but slower runtime, it will mostly converge before 1000, but user have
+    // the freedom to adjust convergence
+    /// @return vector that contains all the eigenvalue
     std::vector<double> eigenvalues(const Matrix& matrix, uint32_t iterations=1e3);
 
+    /// @brief get the eigenvector of input matrix
+    /// @param matrix 
+    /// @param iterations default set at 1000, more iteration = more precision
+    // but slower runtime, it will mostly converge before 1000, but user have
+    // the freedom to adjust convergence
+    /// @return vector that contains all the eigenvector
     std::vector<Matrix> eigenvectors(const Matrix& matrix, uint32_t iterations=1e3);
+
+
+    double dotProduct(const Matrix& matrix1, const Matrix& matrix2);
 }
 
 #endif
