@@ -238,4 +238,12 @@ namespace tiele {
         }
         return pivot_row;
     }
+
+    Matrix Matrix::getColumn(uint32_t col) const {
+        Matrix result(row_size, 1);
+        for (uint32_t i = 0; i < row_size; ++i) {
+            result.setValue(i, 0, data[i][col]);
+        }
+        return result;
+    }
 }

@@ -45,5 +45,7 @@ int main() {
     std::cout << vec << std::endl;
     std::cout << matrix_A << std::endl;
     std::cout << matrix_A / 2 << std::endl;
+
+    std::cout << matrix_A.getColumn(2) << std::endl;
     return 0;
 }

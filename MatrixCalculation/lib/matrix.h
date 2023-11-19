@@ -37,6 +37,8 @@ namespace tiele {
 
         double getValue(uint32_t row, uint32_t col) const;
 
+        Matrix getColumn(uint32_t col) const;
+
         // Setters
         void setRowSize(uint32_t new_row_size);
         void setColSize(uint32_t new_col_size);
@@ -45,6 +47,7 @@ namespace tiele {
         void transpose();
         void swapRows(uint32_t row1, uint32_t row2);
         uint32_t findPivotRow(uint32_t curr_row, uint32_t col);
+
 
         // to_string
         std::string to_string() const;

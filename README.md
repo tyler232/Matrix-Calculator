@@ -31,6 +31,8 @@ Norm (Subject to change after finish Eigenvalue function for 2-norm)
 
 Condition
 
+QR decomposition
+
 ## Coming Soon
 
 Eigenvalue + Eigenvector

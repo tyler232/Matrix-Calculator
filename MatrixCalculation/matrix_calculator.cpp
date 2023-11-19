@@ -312,44 +312,42 @@ namespace tiele {
         return cond;
     }
 
-    // std::pair<double, Matrix> eig(const Matrix& matrix, 
-    //                                             double epsilon = 1e-9, 
-    //                                             uint32_t max_iter = 1e7) {
-    //     if (matrix.getRowSize() != matrix.getColSize()) {
-    //         std::cerr << "Input must be square matrix" << std::endl;
-    //         return { std::numeric_limits<double>::quiet_NaN(), Matrix() };
-    //     }
+    std::pair<Matrix, Matrix> qrDecomposition(const Matrix& matrix) {
+        Matrix A(matrix);
+        uint32_t m = matrix.getRowSize();
+        uint32_t n = matrix.getColSize();
+        Matrix Q(m, n);
+        Matrix R(n, n);
+        for (uint32_t j = 0; j < n; ++j) {
+            Matrix v = A.getColumn(j);
+            for (uint32_t i = 0; i < j; ++i) {
+                double dot = dotProduct(Q.getColumn(i), A.getColumn(j));
+                v = v - dot * Q.getColumn(i);
+            }
+            double normV = norm(v, 2);
+            if (normV < 1e-8) continue;
 
-    //     uint32_t size = matrix.getRowSize();
-        
-    //     // Perform Power iteration
-    //     std::vector<double> eigenvector_data(size, 1);
-    //     Matrix eigenvector(eigenvector_data);   // start vector
+            // Q
+            for (uint32_t i = 0; i < m; ++i) {
+                Q.setValue(i, j, v.getValue(i, 0) / normV);
+            }
 
-    //     for (uint32_t iteration = 0; iteration < max_iter; ++iteration) {
-    //         // Multiply matrix with current eigenvector
-    //         eigenvector = matrix * eigenvector;
+            // R
+            for (uint32_t i = j; i < n; ++i) {
+                R.setValue(j, i, dotProduct(Q.getColumn(j), A.getColumn(i)));
+            }
+        }
 
-    //         // Normalize the eigenvector
-    //         double nm = norm(eigenvector, 2);
-    //         for (uint32_t i = 0; i < size; ++i) {
-    //             eigenvector.setValue(i, eigenvector.getValue(0, i) / nm);
-    //         }
+        return std::make_pair(Q, R);
+    }
 
-    //         // Calculate the eigenvalue
-    //         double eigenvalue = eigenvector.getValue(0, 0);
-    //         // Check for convergence
-    //         if (iteration > 0 && std::abs(eigenvalue - prevEigenvalue) < epsilon) {
-    //             return { eigenvalue, eigenvector };
-    //         }
-
-    //         // Save the eigenvalue for the next iteration
-    //         prevEigenvalue = eigenvalue;
-    //     }
-
-    //     std::cerr << "Power iteration did not converge within the specified number of iterations" << std::endl;
-    //     return { std::numeric_limits<double>::quiet_NaN(), {} }; // Return NaN for non-convergent cases
-    // }
+    double dotProduct(const Matrix& matrix1, const Matrix& matrix2) {
+        double result = 0;
+        for (uint32_t i = 0; i < matrix1.getRowSize(); ++i) {
+            result += matrix1.getValue(i, 0) * matrix2.getValue(i, 0);
+        }
+        return result;
+    }
 
 }
 

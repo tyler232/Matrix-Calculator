@@ -4,7 +4,7 @@
 #include <vector>
 
 int main() {
-    std::vector<std::vector<double>> data_A = {{0, 1, 4},
+    std::vector<std::vector<double>> data_A = {{3, 1, 4},
                                                {2, 3, 6},
                                                {0, 5, 10}};
     std::vector<std::vector<double>> data_B = {{7, 1, 6, 4},
@@ -67,5 +67,8 @@ int main() {
     double c = tiele::cond(matrix_A, std::numeric_limits<int>::infinity());
     std::cout << "Cond " << c << std::endl;
     std::cout << std::endl;
+
+    std::cout << tiele::qrDecomposition(matrix_A).first << std::endl;
+    std::cout << tiele::qrDecomposition(matrix_A).second << std::endl;
     return 0;
 }

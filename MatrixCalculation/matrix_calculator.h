@@ -84,6 +84,11 @@ namespace tiele {
     /// @param degree 
     /// @return matrix norm with given degree
     double cond(const Matrix& matrix, int degree);
+
+    double dotProduct(const Matrix& matrix1, const Matrix& matrix2);
+
+
+    std::pair<Matrix, Matrix> qrDecomposition(const Matrix& matrix);
 }
 
 #endif
