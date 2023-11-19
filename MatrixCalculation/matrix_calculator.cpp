@@ -76,7 +76,7 @@ namespace tiele {
         return result;
     }
 
-    Matrix identity(u_int32_t size) {
+    Matrix identity(uint32_t size) {
         Matrix identity(size, size);
         for (uint32_t i = 0; i < size; ++i) {
             identity.setValue(i, i, 1.0);
@@ -341,12 +341,12 @@ namespace tiele {
         return std::make_pair(Q, R);
     }
 
-    std::vector<double> eigenvalue(const Matrix& matrix, int iterations) {
+    std::vector<double> eigenvalues(const Matrix& matrix, uint32_t iterations) {
         uint32_t size = matrix.getRowSize();
         Matrix A(matrix);
 
         // Apply QR decomposition
-        for (int iter = 0; iter < iterations; ++iter) {
+        for (uint32_t iter = 0; iter < iterations; ++iter) {
             double shift = A.getValue(size - 1, size - 1);
             Matrix Q, R;
             auto QR = qrDecomposition(A - (shift * identity(size)));
@@ -360,7 +360,6 @@ namespace tiele {
         for (uint32_t i = 0; i < size; ++i) {
             eigenvalues.push_back(A.getValue(i, i));
         }
-
         return eigenvalues;
     }
 
@@ -372,6 +371,34 @@ namespace tiele {
         return result;
     }
 
+    std::vector<Matrix> eigenvectors(const Matrix& matrix, uint32_t iterations) {
+        std::vector<double> eig_vals = eigenvalues(matrix, iterations);
+        std::vector<Matrix> eig_vecs;
+
+        for (double eig_val : eig_vals) {
+            // Shift Matrix (A - lambda * I)
+            Matrix shiftedMatrix = matrix - identity(matrix.getRowSize()) * eig_val;
+
+            // Solve for (A - lambda * I) * v = 0 using QR decomposition
+            std::pair<Matrix, Matrix> qrResult = qrDecomposition(shiftedMatrix);
+            Matrix upperTriangular = qrResult.second;
+
+            // Back-substitution to find v
+            Matrix eigenvector(matrix.getRowSize(), 1);
+            eigenvector.setValue(matrix.getRowSize() - 1, 0, 1.0);
+
+            for (int i = matrix.getRowSize() - 2; i >= 0; --i) {
+                double sum = 0.0;
+                for (uint32_t j = i + 1; j < matrix.getRowSize(); ++j) {
+                    sum += upperTriangular.getValue(i, j) * eigenvector.getValue(j, 0);
+                }
+                double value = -sum / upperTriangular.getValue(i, i);
+                eigenvector.setValue(i, 0, value);
+            }
+            eig_vecs.push_back(eigenvector);
+        }
+        return eig_vecs;
+    }
     
 
 }

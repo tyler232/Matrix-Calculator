@@ -90,7 +90,9 @@ namespace tiele {
 
     std::pair<Matrix, Matrix> qrDecomposition(const Matrix& matrix);
 
-    std::vector<double> eigenvalue(const Matrix& matrix, int iterations=1e3);
+    std::vector<double> eigenvalues(const Matrix& matrix, uint32_t iterations=1e3);
+
+    std::vector<Matrix> eigenvectors(const Matrix& matrix, uint32_t iterations=1e3);
 }
 
 #endif

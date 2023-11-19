@@ -103,6 +103,16 @@ namespace tiele {
         return oss.str();
     }
 
+    void Matrix::append_column(const std::vector<double>& append_col) {
+        if (append_col.size() != row_size) {
+            throw std::invalid_argument("Column size invalid");
+        }
+        for (uint32_t i = 0; i < row_size; ++i) {
+            data[i].push_back(append_col[i]);
+        }
+        col_size++;
+    }
+
     Matrix& Matrix::operator=(const Matrix& other) {
         if (this != &other) {
             _copy(other);

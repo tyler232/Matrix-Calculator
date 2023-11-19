@@ -44,8 +44,7 @@ int main() {
     tiele::Matrix vec({3, 2, 5});
     std::cout << vec << std::endl;
     std::cout << matrix_A << std::endl;
-    std::cout << matrix_A / 2 << std::endl;
-
-    std::cout << matrix_A.getColumn(2) << std::endl;
+    matrix_A.append_column({2, 2, 1});
+    std::cout << matrix_A << std::endl;
     return 0;
 }

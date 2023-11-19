@@ -1,4 +1,3 @@
-#include "lib/matrix.h"
 #include "matrix_calculator.h"
 #include <iostream>
 #include <vector>
@@ -72,6 +71,8 @@ int main() {
     std::cout << tiele::qrDecomposition(matrix_A).second << std::endl;
 
 
-    std::cout << tiele::eigenvalue(matrix_A)[2] << std::endl;
+    std::cout << tiele::eigenvalues(matrix_A)[2] << std::endl;
+    std::cout << tiele::eigenvectors(matrix_A)[0] << std::endl;
+    
     return 0;
 }
