@@ -341,6 +341,29 @@ namespace tiele {
         return std::make_pair(Q, R);
     }
 
+    std::vector<double> eigenvalue(const Matrix& matrix, int iterations) {
+        uint32_t size = matrix.getRowSize();
+        Matrix A(matrix);
+
+        // Apply QR decomposition
+        for (int iter = 0; iter < iterations; ++iter) {
+            double shift = A.getValue(size - 1, size - 1);
+            Matrix Q, R;
+            auto QR = qrDecomposition(A - (shift * identity(size)));
+            Q = QR.first;
+            R = QR.second;
+            A = R * Q + shift * identity(size);
+        }
+
+        // extract eigen value from the diagnol matrix we got
+        std::vector<double> eigenvalues;
+        for (uint32_t i = 0; i < size; ++i) {
+            eigenvalues.push_back(A.getValue(i, i));
+        }
+
+        return eigenvalues;
+    }
+
     double dotProduct(const Matrix& matrix1, const Matrix& matrix2) {
         double result = 0;
         for (uint32_t i = 0; i < matrix1.getRowSize(); ++i) {
@@ -348,6 +371,8 @@ namespace tiele {
         }
         return result;
     }
+
+    
 
 }
 

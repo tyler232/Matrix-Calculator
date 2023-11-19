@@ -70,5 +70,8 @@ int main() {
 
     std::cout << tiele::qrDecomposition(matrix_A).first << std::endl;
     std::cout << tiele::qrDecomposition(matrix_A).second << std::endl;
+
+
+    std::cout << tiele::eigenvalue(matrix_A)[2] << std::endl;
     return 0;
 }

@@ -89,6 +89,8 @@ namespace tiele {
 
 
     std::pair<Matrix, Matrix> qrDecomposition(const Matrix& matrix);
+
+    std::vector<double> eigenvalue(const Matrix& matrix, int iterations=1e3);
 }
 
 #endif
