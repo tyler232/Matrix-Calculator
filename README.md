@@ -33,9 +33,9 @@ Condition
 
 QR decomposition
 
-## Coming Soon
-
 Eigenvalue + Eigenvector
+
+## Coming Soon
 
 Triangular
 
