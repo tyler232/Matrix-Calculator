@@ -22,8 +22,13 @@ int main() {
     std::cout << tiele::svd(A)[1] << std::endl; // S
     std::cout << tiele::svd(A)[2] << std::endl; // V
 
-    tiele::Matrix B({{2, 4, -1},
-                    {3, -2, 7.5},
-                    {9, 5, 1}});
+    tiele::Matrix v1({1, 3, 7});
+    v1 = tiele::transpose(v1);
+    tiele::Matrix v2({6, 5, 9});
+    v2 = tiele::transpose(v2);
+    std::cout << "Inner Product" << std::endl;
+    std::cout << tiele::inner(v1, v2) << std::endl;
+    std::cout << "Outer Product" << std::endl;
+    std::cout << tiele::outer(v1, v2) << std::endl;
     return 0;
 }

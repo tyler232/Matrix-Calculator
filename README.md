@@ -349,3 +349,25 @@ Rows: 3
 Cols: 3
 ```
 
+### Inner & Outer Product
+```{C++}
+tiele::Matrix v1({1, 3, 7});
+v1 = tiele::transpose(v1);
+tiele::Matrix v2({6, 5, 9});
+v2 = tiele::transpose(v2);
+std::cout << "Inner Product" << std::endl;
+std::cout << tiele::inner(v1, v2) << std::endl;
+std::cout << "Outer Product" << std::endl;
+std::cout << tiele::outer(v1, v2) << std::endl;
+```
+```{txt}
+Inner Product
+84
+Outer Product
+[[6,    5,      9]
+[18,    15,     27]
+[42,    35,     63]]
+Rows: 3
+Cols: 3
+```
+
