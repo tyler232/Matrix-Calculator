@@ -360,7 +360,7 @@ std::cout << tiele::inner(v1, v2) << std::endl;
 std::cout << "Outer Product" << std::endl;
 std::cout << tiele::outer(v1, v2) << std::endl;
 ```
-```txt
+```{txt}
 Inner Product
 84
 Outer Product
