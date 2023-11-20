@@ -4,6 +4,7 @@
 #include "lib/matrix.h"
 #include "matrix_basic_operation.h"
 #include "matrix_basic_type.h"
+#include "echelon.h"
 
 #include <iostream>
 #include <vector>
@@ -20,16 +21,6 @@ namespace tiele {
     /// @param rhs_matrix (b)
     /// @return solved matrix (x)
     Matrix solve(const Matrix& lhs_matrix, const Matrix& rhs_matrix);
-
-    /// @brief find Reduced Row Echelon form
-    /// @param matrix 
-    /// @return RREF of inputted matrix
-    Matrix reduced_row_echelon(const Matrix& matrix);
-
-    /// @brief  find Row Echelon form 
-    /// @param matrix 
-    /// @return REF of inputted matrix
-    Matrix row_echelon_form(const Matrix& matrix);
 
     /// @brief find rank of input matrix
     /// @param matrix 

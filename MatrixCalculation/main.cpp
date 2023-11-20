@@ -97,5 +97,8 @@ int main() {
 
     std::cout << tiele::inner(tiele::transpose(tiele::Matrix({1, 2, 4})), 
                             tiele::transpose(tiele::Matrix({3, 2, 8}))) << std::endl;
+    
+    tiele::Matrix matrix_LL = tiele::reduced_row_echelon(matrix_A);
+    std::cout << matrix_LL << std::endl;
     return 0;
 }
