@@ -51,25 +51,6 @@ namespace tiele {
         return (inverse(lhs_matrix) * rhs_matrix);
     }
 
-    uint32_t matrix_rank(const Matrix& matrix) {
-        // Make matrix to REF
-        Matrix refMatrix = row_echelon_form(matrix);
-
-        // Count number of non-zero rows
-        uint32_t rank = 0;
-        for (uint32_t i = 0; i < refMatrix.getRowSize(); ++i) {
-            bool is_zero_row = true;
-            for (uint32_t j = 0; j < refMatrix.getColSize(); ++j) {
-                if (refMatrix.getValue(i, j) != 0) {
-                    is_zero_row = false;
-                    break;
-                }
-            }
-            if (!is_zero_row) ++rank;
-        }
-        return rank;
-    }
-
     double det(const Matrix& matrix) {
         // Must be a square matrix
         // 1 x 1 matrix return self
@@ -151,7 +132,7 @@ namespace tiele {
         return norm;
     }
 
-    double cond(const Matrix& matrix, int degree) {
+    double cond(const Matrix& matrix, uint32_t degree) {
         if (matrix.getRowSize() != matrix.getColSize()) {
             throw std::invalid_argument("Input Matrix is not a square matrix");
         }

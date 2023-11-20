@@ -53,4 +53,23 @@ namespace tiele {
         }
         return ref;
     }
+
+    uint32_t matrix_rank(const Matrix& matrix) {
+        // Make matrix to REF
+        Matrix refMatrix = row_echelon_form(matrix);
+
+        // Count number of non-zero rows
+        uint32_t rank = 0;
+        for (uint32_t i = 0; i < refMatrix.getRowSize(); ++i) {
+            bool is_zero_row = true;
+            for (uint32_t j = 0; j < refMatrix.getColSize(); ++j) {
+                if (refMatrix.getValue(i, j) != 0) {
+                    is_zero_row = false;
+                    break;
+                }
+            }
+            if (!is_zero_row) ++rank;
+        }
+        return rank;
+    }
 }

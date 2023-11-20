@@ -16,6 +16,11 @@ namespace tiele {
     /// @param matrix 
     /// @return REF of inputted matrix
     Matrix row_echelon_form(const Matrix& matrix);
+
+    /// @brief find rank of input matrix
+    /// @param matrix 
+    /// @return rank
+    uint32_t matrix_rank(const Matrix& matrix);
 }
 
 #endif
