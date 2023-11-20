@@ -3,6 +3,7 @@
 
 #include "lib/matrix.h"
 #include "matrix_basic_operation.h"
+#include "matrix_basic_type.h"
 
 #include <iostream>
 #include <vector>
@@ -13,11 +14,6 @@ namespace tiele {
     /// @param matrix 
     /// @return transpose of a matrix
     Matrix transpose(const Matrix& matrix);
-
-    /// @brief return a identity matrix of given size
-    /// @param size size of rows and cols
-    /// @return identity matrix
-    Matrix identity(uint32_t size);
 
     /// @brief get the inverse of input matrix
     /// @param matrix 
