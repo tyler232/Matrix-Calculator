@@ -140,7 +140,7 @@ namespace tiele {
 
         // Check if the matrix is singular or not
         if (std::abs(det(matrix)) < std::numeric_limits<double>::epsilon()) {
-            return std::numeric_limits<double>::infinity();
+            throw std::invalid_argument("Input Matrix cannot be Singular");
         }
 
         // Get inverse matrix norm
