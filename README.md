@@ -37,10 +37,9 @@ Eigenvalue + Eigenvector
 
 LU decomposition
 
-## Coming Soon
-
 SVD
 
+## Coming Soon
 Inner Product
 
 Outer Product

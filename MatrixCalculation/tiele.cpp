@@ -361,6 +361,133 @@ namespace tiele {
         }
         return {L, U};
     }
+
+    Matrix eigenvectors_asMatrix(const Matrix& matrix, uint32_t iterations) {
+        std::vector<double> eig_vals = eigenvalues(matrix, iterations);
+        Matrix eig_vecs(matrix.getRowSize(), eig_vals.size());
+
+        for (size_t i = 0; i < eig_vals.size(); ++i) {
+            // Shift Matrix (A - lambda * I)
+            Matrix shiftedMatrix = matrix - identity(matrix.getRowSize()) * eig_vals[i];
+
+            // Solve for (A - lambda * I) * v = 0 using QR decomposition
+            std::pair<Matrix, Matrix> qrResult = qrDecomposition(shiftedMatrix);
+            Matrix upperTriangular = qrResult.second;
+
+            // Back-substitution to find v
+            Matrix eigenvector(matrix.getRowSize(), 1);
+            eigenvector.setValue(matrix.getRowSize() - 1, 0, 1.0);
+
+            for (int j = matrix.getRowSize() - 2; j >= 0; --j) {
+                double sum = 0.0;
+                for (uint32_t k = j + 1; k < matrix.getRowSize(); ++k) {
+                    sum += upperTriangular.getValue(j, k) * eigenvector.getValue(k, 0);
+                }
+                double value = -sum / upperTriangular.getValue(j, j);
+                eigenvector.setValue(j, 0, value);
+            }
+
+            // Set the column in eig_vecs matrix
+            for (uint32_t row = 0; row < matrix.getRowSize(); ++row) {
+                eig_vecs.setValue(row, i, eigenvector.getValue(row, 0));
+            }
+        }
+
+        return eig_vecs;
+    }
+
+    std::vector<Matrix> eigenvectors_normalized(const Matrix& matrix, uint32_t iterations) {
+        std::vector<double> eig_vals = eigenvalues(matrix, iterations);
+        std::vector<Matrix> eig_vecs;
+
+        for (double eig_val : eig_vals) {
+            // Shift Matrix (A - lambda * I)
+            Matrix shiftedMatrix = matrix - identity(matrix.getRowSize()) * eig_val;
+
+            // Solve for (A - lambda * I) * v = 0 using QR decomposition
+            std::pair<Matrix, Matrix> qrResult = qrDecomposition(shiftedMatrix);
+            Matrix upperTriangular = qrResult.second;
+
+            // Back-substitution to find v
+            Matrix eigenvector(matrix.getRowSize(), 1);
+            eigenvector.setValue(matrix.getRowSize() - 1, 0, 1.0);
+
+            for (int i = matrix.getRowSize() - 2; i >= 0; --i) {
+                double sum = 0.0;
+                for (uint32_t j = i + 1; j < matrix.getRowSize(); ++j) {
+                    sum += upperTriangular.getValue(i, j) * eigenvector.getValue(j, 0);
+                }
+                double value = -sum / upperTriangular.getValue(i, i);
+                eigenvector.setValue(i, 0, value);
+            }
+            eig_vecs.push_back(eigenvector / norm(eigenvector, 2));
+        }
+        return eig_vecs;
+    }
+
+    Matrix eigenvectors_normalized_asMatrix(const Matrix& matrix, uint32_t iterations) {
+        std::vector<double> eig_vals = eigenvalues(matrix, iterations);
+        Matrix eig_vecs(matrix.getRowSize(), eig_vals.size());
+
+        for (size_t i = 0; i < eig_vals.size(); ++i) {
+            // Shift Matrix (A - lambda * I)
+            Matrix shiftedMatrix = matrix - identity(matrix.getRowSize()) * eig_vals[i];
+
+            // Solve for (A - lambda * I) * v = 0 using QR decomposition
+            std::pair<Matrix, Matrix> qrResult = qrDecomposition(shiftedMatrix);
+            Matrix upperTriangular = qrResult.second;
+
+            // Back-substitution to find v
+            Matrix eigenvector(matrix.getRowSize(), 1);
+            eigenvector.setValue(matrix.getRowSize() - 1, 0, 1.0);
+
+            for (int j = matrix.getRowSize() - 2; j >= 0; --j) {
+                double sum = 0.0;
+                for (uint32_t k = j + 1; k < matrix.getRowSize(); ++k) {
+                    sum += upperTriangular.getValue(j, k) * eigenvector.getValue(k, 0);
+                }
+                double value = -sum / upperTriangular.getValue(j, j);
+                eigenvector.setValue(j, 0, value);
+            }
+
+            // Set the column in eig_vecs matrix
+            for (uint32_t row = 0; row < matrix.getRowSize(); ++row) {
+                eig_vecs.setValue(row, i, eigenvector.getValue(row, 0) / norm(eigenvector, 2));
+            }
+        }
+
+        return eig_vecs;
+    }
+
+    std::pair<std::vector<double>, Matrix> eigen(const Matrix& matrix, uint32_t iterations) {
+        return std::make_pair(eigenvalues(matrix, iterations), 
+                             eigenvectors_normalized_asMatrix(matrix, iterations));
+    }
+
+    std::vector<Matrix> svd(const Matrix& matrix) {
+        Matrix A = matrix;
+
+        Matrix AAT = A * tiele::transpose(A);
+        Matrix ATA = tiele::transpose(A) * A;
+
+        // U = A * At
+        // V = At * A
+        Matrix U = eigenvectors_normalized_asMatrix(AAT);
+        Matrix V = eigenvectors_normalized_asMatrix(ATA);
+
+        // A = U * S * Vt
+        // Ut * A = S * Vt
+        // Ut * A * V = S
+        Matrix S = tiele::transpose(U) * A * V;
+
+        // round of errors
+        for (uint32_t i = 0 ; i < S.getRowSize(); ++i) {
+            for (uint32_t j = 0; j < S.getColSize(); ++j) {
+                if (S.getValue(i, j) < 1e-8) S.setValue(i, j, 0);
+            }
+        }
+        return {U, S, V};
+    }
 }
 
 

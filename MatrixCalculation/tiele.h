@@ -98,8 +98,20 @@ namespace tiele {
     /// @param matrix2 v2
     /// @return dot product of v1 and v2
     double dotProduct(const Matrix& matrix1, const Matrix& matrix2);
-
+    
     std::pair<Matrix, Matrix> luDecomposition(const Matrix& matrix);
+
+    Matrix eigenvectors_asMatrix(const Matrix& matrix, uint32_t iterations=1e3);
+
+    // Matrix eigen(const Matrix& matrix, uint32_t iterations=1e3);
+
+    std::vector<Matrix> eigenvectors_normalized(const Matrix& matrix, uint32_t iterations=1e3);
+
+    Matrix eigenvectors_normalized_asMatrix(const Matrix& matrix, uint32_t iterations=1e3);
+
+    std::pair<std::vector<double>, Matrix> eigen(const Matrix& matrix, uint32_t iterations = 1e3);
+
+    std::vector<Matrix> svd(const Matrix& matrix);
 }
 
 #endif

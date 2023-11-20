@@ -37,8 +37,12 @@ namespace tiele {
         if (row < row_size && col < col_size) return data[row][col];
 
         // input argument over the size of matrix or smaller than 0
-        std::cerr << "Invalid matrix indices." << std::endl;
-        return 0.0;
+        throw std::invalid_argument("getValue() : Invalid matrix indices.");
+        return 0;
+    }
+
+    std::vector<std::vector<double>> Matrix::getData() const {
+        return data;
     }
 
     // ReShape Row, if new Row is greater than the original Row append 0 to extra space
@@ -85,7 +89,7 @@ namespace tiele {
         }
 
         // input argument over the size of matrix or smaller than 0
-        std::cerr << "Invalid matrix indices." << std::endl;
+        throw std::invalid_argument("setValue() : Invalid matrix indices.");
     }
 
     std::string Matrix::to_string() const {
@@ -112,6 +116,7 @@ namespace tiele {
         }
         col_size++;
     }
+
 
     Matrix& Matrix::operator=(const Matrix& other) {
         if (this != &other) {

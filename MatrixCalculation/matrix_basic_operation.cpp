@@ -4,7 +4,7 @@ namespace tiele {
     Matrix addition(const Matrix& matrix_A, const Matrix& matrix_B) {
         if (matrix_A.getRowSize() != matrix_B.getRowSize() || 
             matrix_A.getColSize() != matrix_B.getColSize()) {
-            throw std::invalid_argument("Incorrect Dimension");
+            throw std::invalid_argument("addition(): Incorrect Dimension");
         }
 
         uint32_t rows = matrix_A.getRowSize();
@@ -22,7 +22,7 @@ namespace tiele {
     Matrix subtraction(const Matrix& matrix_A, const Matrix& matrix_B) {
         if (matrix_A.getRowSize() != matrix_B.getRowSize() || 
             matrix_A.getColSize() != matrix_B.getColSize()) {
-            throw std::invalid_argument("Incorrect Dimension");
+            throw std::invalid_argument("subtraction(): Incorrect Dimension");
         }
         
         uint32_t rows = matrix_A.getRowSize();
@@ -39,7 +39,7 @@ namespace tiele {
 
     Matrix multiplication(const Matrix& matrix_A, const Matrix& matrix_B) {
         if (matrix_A.getColSize() != matrix_B.getRowSize()) {
-            throw std::invalid_argument("Incorrect Dimension");
+            throw std::invalid_argument("multiplication(): Incorrect Dimension");
         }
         uint32_t rows_a = matrix_A.getRowSize();
         uint32_t cols_a = matrix_A.getColSize();

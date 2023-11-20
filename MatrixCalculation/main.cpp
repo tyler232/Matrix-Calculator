@@ -81,5 +81,18 @@ int main() {
     std::cout << std::endl;
     std::cout << tiele::luDecomposition(matrix_A).first << std::endl;
     std::cout << tiele::luDecomposition(matrix_A).second << std::endl;
+
+    std::cout << tiele::eigenvectors_asMatrix(matrix_A) << std::endl;
+
+    std::cout << tiele::eigenvectors_normalized(matrix_A)[2] << std::endl;
+    std::cout << tiele::eigenvectors_normalized_asMatrix(matrix_A) << std::endl;
+
+    std::cout << tiele::eigen(matrix_A).second << std::endl;
+
+    std::cout << tiele::svd(matrix_A)[0] << std::endl;
+
+    std::cout << tiele::svd(matrix_A)[2] << std::endl;
+
+    std::cout << tiele::svd(matrix_A)[1] << std::endl;
     return 0;
 }

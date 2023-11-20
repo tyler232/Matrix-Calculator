@@ -35,6 +35,7 @@ namespace tiele {
         uint32_t getColSize() const;
         double getValue(uint32_t row, uint32_t col) const;
         Matrix getColumn(uint32_t col) const;
+        std::vector<std::vector<double>> getData() const;
 
         // Setters
         void setRowSize(uint32_t new_row_size);
