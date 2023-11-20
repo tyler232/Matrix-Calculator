@@ -28,12 +28,12 @@ C++ compiler with C++14 support
 ### Installation
 clone this repository
 
-```{bash}
+```bash
 git clone https://github.com/tyler232/Tiele-Linear-Algebra-Library.git
 ```
 
 Include the library
-```{C++}
+```c++
 #include "Tiele-Linear-Algebra-Library/tiele.h"
 ```
 
@@ -45,7 +45,7 @@ If you encountered bugs with the project please make a Issue Post or E-mail me a
 ## Tutorial
 
 ### Create Matrix
-```{C++}
+```c++
 tiele::Matrix matrix_A({{3, 1, 4},
                         {2, 3, 6},
                         {0, 5, 10}});
@@ -60,7 +60,7 @@ Cols: 3
 ```
 
 ### Create Zero Matrix
-```{C++}
+```c++
 // First parameter is amount of rows, second parameter is amount of columns
 tiele::Matrix matrix_B(3, 3);
 std::cout << matrix_B << std::endl;
@@ -74,7 +74,7 @@ Cols: 3
 ```
 
 ### Create Identity Matrix
-```{C++}
+```c++
 // Parameter is the size of identity
 tiele::Matrix I = tiele::identity(3);
 std::cout << I << std::endl;
@@ -88,7 +88,7 @@ Cols: 3
 ```
 
 ### Get and Set Value in the Matrix
-```{C++}
+```c++
 tiele::Matrix A({{3, 1, 4},
                 {2, 3, 6},
                 {0, 5, 10}});
@@ -106,7 +106,7 @@ std::cout << val << std::endl;
 ```
 
 ### Basic Matrix Operation
-```{C++}
+```c++
 tiele::Matrix A({{3, 1, 4},
                 {2, 3, 6},
                 {0, 5, 10}});
@@ -144,7 +144,7 @@ Cols: 3
 ```
 
 ### Transpose
-```{C++}
+```c++
 tiele::Matrix A({{3, 1, 4},
                 {2, 3, 6},
                 {0, 5, 10}});
@@ -159,7 +159,7 @@ Cols: 3
 ```
 
 ### Inverse
-```{C++}
+```c++
 tiele::Matrix A({{3, 1, 4},
                 {2, 3, 6},
                 {0, 5, 10}});
@@ -174,7 +174,7 @@ Cols: 3
 ```
 
 ### Determinant
-```{C++}
+```c++
 tiele::Matrix A({{3, 1, 4},
                 {2, 3, 6},
                 {0, 5, 10}});
@@ -185,7 +185,7 @@ std::cout << tiele::det(A) << std::endl;
 ```
 
 ### Norm
-```{C++}
+```c++
 tiele::Matrix A({{3, 1, 4},
                 {2, 3, 6},
                 {0, 5, 10}});
@@ -200,7 +200,7 @@ std::cout << tiele::norm(A, std::numeric_limits<int>::infinity()) << std::endl; 
 ```
 
 ### Condition
-```{C++}
+```c++
 tiele::Matrix A({{3, 1, 4},
                 {2, 3, 6},
                 {0, 5, 10}});
@@ -215,7 +215,7 @@ std::cout << tiele::cond(A, std::numeric_limits<int>::infinity()) << std::endl; 
 ```
 
 ### Trace
-```{C++}
+```c++
 tiele::Matrix A({{3, 1, 4},
                 {2, 3, 6},
                 {0, 5, 10}});
@@ -226,7 +226,7 @@ std::cout << tiele::trace(A) << std::endl;
 ```
 
 ### Rank
-```{C++}
+```c++
 tiele::Matrix A({{3, 1, 4},
                 {2, 3, 6},
                 {0, 5, 10}});
@@ -237,7 +237,7 @@ std::cout << tiele::matrix_rank(A) << std::endl;
 ```
 
 ### RREF
-```{C++}
+```c++
 tiele::Matrix A({{3, 1, 4, 2},
                 {2, 3, 6, 5},
                 {0, 5, 10, 7}});
@@ -253,7 +253,7 @@ Cols: 4
 ```
 
 ### Eigen
-```{C++}
+```c++
 tiele::Matrix A({{3, 1, 4},
                 {2, 3, 6},
                 {0, 5, 10}});
@@ -277,7 +277,7 @@ Cols: 3
 ```
 
 ### QR decomposition
-```{C++}
+```c++
 tiele::Matrix A({{3, 1, 4},
                 {2, 3, 6},
                 {0, 5, 10}});
@@ -299,7 +299,7 @@ Cols: 3
 ```
 
 ### LU decomposition
-```{C++}
+```c++
 tiele::Matrix A({{3, 1, 4},
                 {2, 3, 6},
                 {0, 5, 10}});
@@ -321,7 +321,7 @@ Cols: 3
 ```
 
 ### Singular Value Decomposition
-```{C++}
+```c++
 tiele::Matrix A({{3, 1, 4},
                 {2, 3, 6},
                 {0, 5, 10}});
@@ -350,7 +350,7 @@ Cols: 3
 ```
 
 ### Inner & Outer Product
-```{C++}
+```c++
 tiele::Matrix v1({1, 3, 7});
 v1 = tiele::transpose(v1);
 tiele::Matrix v2({6, 5, 9});
@@ -360,7 +360,7 @@ std::cout << tiele::inner(v1, v2) << std::endl;
 std::cout << "Outer Product" << std::endl;
 std::cout << tiele::outer(v1, v2) << std::endl;
 ```
-```{txt}
+```txt
 Inner Product
 84
 Outer Product
