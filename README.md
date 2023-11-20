@@ -252,3 +252,100 @@ Rows: 3
 Cols: 4
 ```
 
+### Eigen
+```{C++}
+tiele::Matrix A({{3, 1, 4},
+                {2, 3, 6},
+                {0, 5, 10}});
+// complex algorithm, if you are interested please check tiele.h and tiele.cpp with detailed explaination
+std::pair<std::vector<double>, tiele::Matrix> eigen_A = tiele::eigen(A);
+// eigenvalues
+for (double eigenvalue : eigen_A.first) {
+    std::cout << eigenvalue << " ";
+}
+std::cout << std::endl;
+// eigenvectors (column)
+std::cout << tiele::eigen(A).second << std::endl;
+```
+```{txt}
+0.809706 1.85181 13.3385 
+[[-0.426632,    -0.733675,      0.351519]
+[-0.794459,     -0.579154,      0.519855]
+[0.432227,      0.355388,       0.778579]]
+Rows: 3
+Cols: 3
+```
+
+### QR decomposition
+```{C++}
+tiele::Matrix A({{3, 1, 4},
+                {2, 3, 6},
+                {0, 5, 10}});
+std::cout << tiele::qrDecomposition(A).first << std::endl; // Q
+std::cout << tiele::qrDecomposition(A).second << std::endl; // R
+```
+```{txt}
+[[0.83205,      -0.20078,       0.517088]
+[0.5547,        0.30117,        -0.775632]
+[0,     0.932193,       0.361961]]
+Rows: 3
+Cols: 3
+
+[[3.60555,      2.49615,        6.6564]
+[0,     5.3637, 10.3258]
+[0,     0,      1.03418]]
+Rows: 3
+Cols: 3
+```
+
+### LU decomposition
+```{C++}
+tiele::Matrix A({{3, 1, 4},
+                {2, 3, 6},
+                {0, 5, 10}});
+std::cout << tiele::luDecomposition(A).first << std::endl; // L
+std::cout << tiele::luDecomposition(A).second << std::endl; // U
+```
+```{txt}
+[[1,    0,      0]
+[0.666667,      1,      0]
+[0,     2.14286,        1]]
+Rows: 3
+Cols: 3
+
+[[3,    1,      4]
+[0,     2.33333,        3.33333]
+[0,     0,      2.85714]]
+Rows: 3
+Cols: 3
+```
+
+### Singular Value Decomposition
+```{C++}
+tiele::Matrix A({{3, 1, 4},
+                {2, 3, 6},
+                {0, 5, 10}});
+std::cout << tiele::svd(A)[0] << std::endl; // U
+std::cout << tiele::svd(A)[1] << std::endl; // S
+std::cout << tiele::svd(A)[2] << std::endl; // V
+```
+```{txt}
+[[0.503637,     -0.801896,      0.321423]
+[-0.808536,     -0.30645,       0.502352]
+[0.304334,      0.512885,       0.802702]]
+Rows: 3
+Cols: 3
+
+[[0.462844,     0,      0]
+[0,     3.13523,        0]
+[0,     0,      13.7825]]
+Rows: 3
+Cols: 3
+
+[[-0.229371,    -0.962798,      0.142861]
+[-0.864874,     0.268936,       0.423871]
+[0.446523,      0.0263328,      0.894385]]
+Rows: 3
+Cols: 3
+```
+
