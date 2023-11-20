@@ -1,10 +1,10 @@
 #ifndef TIELE_H
 #define TIELE_H
 
-#include "lib/src/matrix.h"
-#include "matrix_basic_operation.h"
-#include "matrix_basic_type.h"
-#include "echelon.h"
+#include "utility/lib/src/matrix.h"
+#include "utility/matrix_basic_operation.h"
+#include "utility/matrix_basic_type.h"
+#include "utility/echelon.h"
 
 #include <iostream>
 #include <vector>
