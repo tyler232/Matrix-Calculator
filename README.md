@@ -5,12 +5,19 @@ Tiele Linear Algebra Library is a C++ library that designed to perform various a
 ## Feature
 
 Basic Linear Algebra Operations(Addition, Subtraction, Multiplication between Matrix, Vector and Scalar)
+
 Inner & Outer Product calculation between vectors
+
 Transpose, Inverse, Determinant, Norm, Trace, Condition, Rank
+
 REF and RREF
+
 Eigenvectors and Eigenvalues
+
 QR decomposition
+
 LU decomposition
+
 Singular Value Decomposition
 
 ## Getting Started
