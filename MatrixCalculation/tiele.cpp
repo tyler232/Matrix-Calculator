@@ -253,7 +253,7 @@ namespace tiele {
         for (uint32_t j = 0; j < n; ++j) {
             Matrix v = A.getColumn(j);
             for (uint32_t i = 0; i < j; ++i) {
-                double dot = dotProduct(Q.getColumn(i), A.getColumn(j));
+                double dot = inner(Q.getColumn(i), A.getColumn(j));
                 v = v - dot * Q.getColumn(i);
             }
             double normV = norm_frob(v);
@@ -266,7 +266,7 @@ namespace tiele {
 
             // R
             for (uint32_t i = j; i < n; ++i) {
-                R.setValue(j, i, dotProduct(Q.getColumn(j), A.getColumn(i)));
+                R.setValue(j, i, inner(Q.getColumn(j), A.getColumn(i)));
             }
         }
 
@@ -294,7 +294,7 @@ namespace tiele {
         return eigenvalues;
     }
 
-    double dotProduct(const Matrix& matrix1, const Matrix& matrix2) {
+    double inner(const Matrix& matrix1, const Matrix& matrix2) {
         double result = 0;
         for (uint32_t i = 0; i < matrix1.getRowSize(); ++i) {
             result += matrix1.getValue(i, 0) * matrix2.getValue(i, 0);
@@ -487,6 +487,24 @@ namespace tiele {
             }
         }
         return {U, S, V};
+    }
+
+    Matrix outer(const Matrix& vector1, const Matrix& vector2) {
+        if (vector1.getColSize() != 1 || vector2.getColSize() != 1) {
+            throw std::invalid_argument("outer(): Invalid Column Size");
+        }
+
+        uint32_t size1 = vector1.getRowSize();
+        uint32_t size2 = vector2.getRowSize();
+
+        Matrix result(size1, size2);
+
+        for (uint32_t i = 0; i < size1; ++i) {
+            for (uint32_t j = 0; j < size2; ++j) {
+                result.setValue(i, j, vector1.getValue(i, 0) * vector2.getValue(j, 0));
+            }
+        }
+        return result;
     }
 }
 

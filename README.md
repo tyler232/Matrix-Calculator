@@ -39,7 +39,9 @@ LU decomposition
 
 SVD
 
-## Coming Soon
 Inner Product
 
 Outer Product
+## Coming Soon
+
+All Done

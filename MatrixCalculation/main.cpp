@@ -6,9 +6,9 @@ int main() {
     std::vector<std::vector<double>> data_A = {{3, 1, 4},
                                                {2, 3, 6},
                                                {0, 5, 10}};
-    std::vector<std::vector<double>> data_B = {{7, 1, 6, 4},
-                                               {2, 4, 8, 3},
-                                               {7, 3, 8, -1.3}};
+    std::vector<std::vector<double>> data_B = {{7, 1, 6},
+                                               {2, 4, 8},
+                                               {7, 3, 8}};
     std::vector<std::vector<double>> data_b = {{2},
                                                {4},
                                                {7}};
@@ -94,5 +94,8 @@ int main() {
     std::cout << tiele::svd(matrix_A)[2] << std::endl;
 
     std::cout << tiele::svd(matrix_A)[1] << std::endl;
+
+    std::cout << tiele::inner(tiele::transpose(tiele::Matrix({1, 2, 4})), 
+                            tiele::transpose(tiele::Matrix({3, 2, 8}))) << std::endl;
     return 0;
 }
