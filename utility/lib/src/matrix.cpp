@@ -94,16 +94,23 @@ namespace tiele {
 
     std::string Matrix::to_string() const {
         std::ostringstream oss;
-
-        for (auto row : data) {
-            for (auto value : row) {
-                oss << value << ".\t";
+        oss << "[";
+        for (uint32_t i = 0; i < data.size(); ++i) {
+            oss << "[";
+            auto row = data[i];
+            for (uint32_t ii = 0; ii < row.size(); ++ii) {
+                if (ii != row.size() - 1) {
+                    oss << row[ii] << ",\t";
+                } else {
+                    oss << row[ii] << "]";
+                }
             }
-            oss << std::endl;
+            if (i != row.size() - 1) oss << std::endl;
         }
+        oss << "]";
+        oss << std::endl;
         oss << "Rows: " << row_size << std::endl;
         oss << "Cols: " << col_size << std::endl;
-
         return oss.str();
     }
 
