@@ -1,4 +1,4 @@
-#include "matrix.h"
+#include "src/matrix.h"
 #include <iostream>
 int main() {
     tiele::Matrix matrix(3, 3);

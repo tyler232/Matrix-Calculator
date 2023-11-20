@@ -1,7 +1,7 @@
 #ifndef ECHELON_H
 #define ECHELON_H
 
-#include "lib/matrix.h"
+#include "lib/src/matrix.h"
 #include <iostream>
 #include <vector>
 #include <limits>

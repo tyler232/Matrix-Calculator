@@ -1,7 +1,7 @@
 #ifndef MATRIX_BASIC_OPERATION_H
 #define MATRIX_BASIC_OPERATION_H
 
-#include "lib/matrix.h"
+#include "lib/src/matrix.h"
 #include <iostream>
 #include <vector>
 #include <limits>

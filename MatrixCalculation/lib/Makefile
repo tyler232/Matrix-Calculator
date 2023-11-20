@@ -2,7 +2,7 @@ CXX = clang++
 CFLAGS = -std=c++14 -Wall -Wextra -g
 LIBS = -lm
 
-SRCS = main.cpp matrix.cpp
+SRCS = src/matrix.cpp main.cpp
 OBJS = $(SRCS:.cpp=.o)
 TARGET = matrix
 
@@ -11,11 +11,11 @@ all: $(TARGET)
 $(TARGET): $(OBJS)
 	$(CXX) $(CFLAGS) $(OBJS) -o $(TARGET) $(LIBS)
 
-main.o: main.cpp matrix.h
+main.o: main.cpp src/matrix.h 
 	$(CXX) $(CFLAGS) -c main.cpp
 
-matrix.o: matrix.cpp matrix.h
-	$(CXX) $(CFLAGS) -c matrix.cpp
+src/matrix.o: src/matrix.cpp src/matrix.h
+	$(CXX) $(CFLAGS) -c src/matrix.cpp -o src/matrix.o
 
 clean:
 	rm -f $(OBJS) $(TARGET)

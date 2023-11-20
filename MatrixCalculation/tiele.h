@@ -1,7 +1,7 @@
 #ifndef TIELE_H
 #define TIELE_H
 
-#include "lib/matrix.h"
+#include "lib/src/matrix.h"
 #include "matrix_basic_operation.h"
 #include "matrix_basic_type.h"
 #include "echelon.h"
