@@ -10,11 +10,6 @@
 #include <limits>
 
 namespace tiele {
-    /// @brief transpose a matrix and return a copy of it
-    /// @param matrix 
-    /// @return transpose of a matrix
-    Matrix transpose(const Matrix& matrix);
-
     /// @brief get the inverse of input matrix
     /// @param matrix 
     /// @return a copy of inverse of original matrix
@@ -88,18 +83,10 @@ namespace tiele {
     /// @param matrix 
     /// @return Frobenius norm
     double norm_frob(const Matrix& matrix);
-
-    /// @brief inner product of 2 vectors
-    /// @param matrix1 v1
-    /// @param matrix2 v2
-    /// @return dot product of v1 and v2
-    double inner(const Matrix& matrix1, const Matrix& matrix2);
     
     std::pair<Matrix, Matrix> luDecomposition(const Matrix& matrix);
 
     Matrix eigenvectors_asMatrix(const Matrix& matrix, uint32_t iterations=1e3);
-
-    // Matrix eigen(const Matrix& matrix, uint32_t iterations=1e3);
 
     std::vector<Matrix> eigenvectors_normalized(const Matrix& matrix, uint32_t iterations=1e3);
 
@@ -108,8 +95,6 @@ namespace tiele {
     std::pair<std::vector<double>, Matrix> eigen(const Matrix& matrix, uint32_t iterations = 1e3);
 
     std::vector<Matrix> svd(const Matrix& matrix);
-
-    Matrix outer(const Matrix& vector1, const Matrix& vector2);
 }
 
 #endif

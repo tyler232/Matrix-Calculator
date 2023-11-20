@@ -60,4 +60,48 @@ namespace tiele {
 
         return result;
     }
+
+    Matrix transpose(const Matrix& matrix) {
+        Matrix result(matrix.getColSize(), matrix.getRowSize());
+
+        for (uint32_t i = 0; i < matrix.getRowSize(); ++i) {
+            for (uint32_t j = 0; j < matrix.getColSize(); ++j) {
+                result.setValue(j, i, matrix.getValue(i, j));
+            }
+        }
+
+        return result;
+    }
+
+    double inner(const Matrix& vector1, const Matrix& vector2) {
+        if (vector1.getColSize() != 1 || vector2.getColSize() != 1) {
+            throw std::invalid_argument("inner(): Invalid Column Size");
+        } else if (vector1.getRowSize() != vector2.getRowSize()) {
+            throw std::invalid_argument("inner(): Dimension not match");
+        }
+
+        double result = 0;
+        for (uint32_t i = 0; i < vector1.getRowSize(); ++i) {
+            result += vector1.getValue(i, 0) * vector2.getValue(i, 0);
+        }
+        return result;
+    }
+
+    Matrix outer(const Matrix& vector1, const Matrix& vector2) {
+        if (vector1.getColSize() != 1 || vector2.getColSize() != 1) {
+            throw std::invalid_argument("outer(): Invalid Column Size");
+        }
+
+        uint32_t size1 = vector1.getRowSize();
+        uint32_t size2 = vector2.getRowSize();
+
+        Matrix result(size1, size2);
+
+        for (uint32_t i = 0; i < size1; ++i) {
+            for (uint32_t j = 0; j < size2; ++j) {
+                result.setValue(i, j, vector1.getValue(i, 0) * vector2.getValue(j, 0));
+            }
+        }
+        return result;
+    }
 }
