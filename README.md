@@ -142,3 +142,113 @@ Multiplication
 Rows: 3
 Cols: 3
 ```
+
+### Transpose
+```{C++}
+tiele::Matrix A({{3, 1, 4},
+                {2, 3, 6},
+                {0, 5, 10}});
+std::cout << tiele::transpose(A) << std::endl;
+```
+```{txt}
+[[3,    2,      0]
+[1,     3,      5]
+[4,     6,      10]]
+Rows: 3
+Cols: 3
+```
+
+### Inverse
+```{C++}
+tiele::Matrix A({{3, 1, 4},
+                {2, 3, 6},
+                {0, 5, 10}});
+std::cout << tiele::inverse(A) << std::endl;
+```
+```{txt}
+[[0,    0.5,    -0.3]
+[-1,    1.5,    -0.5]
+[0.5,   -0.75,  0.35]]
+Rows: 3
+Cols: 3
+```
+
+### Determinant
+```{C++}
+tiele::Matrix A({{3, 1, 4},
+                {2, 3, 6},
+                {0, 5, 10}});
+std::cout << tiele::det(A) << std::endl;
+```
+```{txt}
+20
+```
+
+### Norm
+```{C++}
+tiele::Matrix A({{3, 1, 4},
+                {2, 3, 6},
+                {0, 5, 10}});
+std::cout << tiele::norm(A, 1) << std::endl; // L1 norm
+std::cout << tiele::norm(A, 2) << std::endl; // L2 norm
+std::cout << tiele::norm(A, std::numeric_limits<int>::infinity()) << std::endl; // inf norm
+```
+```{txt}
+20
+13.7825
+15
+```
+
+### Condition
+```{C++}
+tiele::Matrix A({{3, 1, 4},
+                {2, 3, 6},
+                {0, 5, 10}});
+std::cout << tiele::cond(A, 1) << std::endl; // condition with L1 norm
+std::cout << tiele::cond(A, 2) << std::endl; // condition with L2 norm
+std::cout << tiele::cond(A, std::numeric_limits<int>::infinity()) << std::endl; // condition with inf norm
+```
+```{txt}
+55
+29.7778
+45
+```
+
+### Trace
+```{C++}
+tiele::Matrix A({{3, 1, 4},
+                {2, 3, 6},
+                {0, 5, 10}});
+std::cout << tiele::trace(A) << std::endl;
+```
+```{txt}
+16
+```
+
+### Rank
+```{C++}
+tiele::Matrix A({{3, 1, 4},
+                {2, 3, 6},
+                {0, 5, 10}});
+std::cout << tiele::matrix_rank(A) << std::endl;
+```
+```{txt}
+3
+```
+
+### RREF
+```{C++}
+tiele::Matrix A({{3, 1, 4, 2},
+                {2, 3, 6, 5},
+                {0, 5, 10, 7}});
+std::cout << tiele::reduced_row_echelon(A) << std::endl;
+```
+```{txt}
+[[1,    0,      0,      0.4]
+[0,     1,      0,      2]
+[0,     0,      1,      -0.3]
+]
+Rows: 3
+Cols: 4
+```
+
