@@ -1,5 +1,5 @@
 CXX = clang++
-CFLAGS = -std=c++14 -Wall -Wextra -g
+CFLAGS = -std=c++14 -Wall -Wextra -g -pthread
 LIBS = -lm
 
 SRCS = main.cpp tiele.cpp utility/lib/src/matrix.cpp utility/matrix_basic_operation.cpp utility/matrix_basic_type.cpp utility/echelon.cpp

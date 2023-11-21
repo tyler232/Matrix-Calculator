@@ -158,55 +158,120 @@ namespace tiele {
         uint32_t n = matrix.getColSize();
         Matrix Q(m, n);
         Matrix R(n, n);
-        for (uint32_t j = 0; j < n; ++j) {
-            Matrix v = A.getColumn(j);
-            for (uint32_t i = 0; i < j; ++i) {
-                double dot = inner(Q.getColumn(i), A.getColumn(j));
-                v = v - dot * Q.getColumn(i);
-            }
-            double normV = norm_frob(v);
-            if (normV < 1e-8) continue;
 
-            // Q
-            for (uint32_t i = 0; i < m; ++i) {
-                Q.setValue(i, j, v.getValue(i, 0) / normV);
-            }
+        std::mutex mutex;  // protecting shared data
 
-            // R
-            for (uint32_t i = j; i < n; ++i) {
-                R.setValue(j, i, inner(Q.getColumn(j), A.getColumn(i)));
+        auto worker = [&](uint32_t start, uint32_t end) {
+            for (uint32_t j = start; j < end; ++j) {
+                Matrix v = A.getColumn(j);
+                for (uint32_t i = 0; i < j; ++i) {
+                    double dot = inner(Q.getColumn(i), A.getColumn(j));
+                    v = v - dot * Q.getColumn(i);
+                }
+                double normV = norm_frob(v);
+
+                std::lock_guard<std::mutex> lock(mutex);
+
+                if (normV < 1e-8) continue;
+
+                // Q
+                for (uint32_t i = 0; i < m; ++i) {
+                    Q.setValue(i, j, v.getValue(i, 0) / normV);
+                }
+
+                // R
+                for (uint32_t i = j; i < n; ++i) {
+                    R.setValue(j, i, inner(Q.getColumn(j), A.getColumn(i)));
+                }
             }
+        };
+
+        // Number of available hardware threads
+        unsigned int numThreads = std::thread::hardware_concurrency();
+        std::vector<std::thread> threads;
+
+        // Divide the work among threads
+        for (unsigned int i = 0; i < numThreads; ++i) {
+            uint32_t start = i * n / numThreads;
+            uint32_t end = (i + 1) * n / numThreads;
+            threads.push_back(std::thread(worker, start, end));
+        }
+
+        // Join threads
+        for (auto& thread : threads) {
+            thread.join();
         }
 
         return std::make_pair(Q, R);
     }
 
+    
+
     std::vector<double> eigenvalues(const Matrix& matrix, uint32_t iterations, double tol) {
         uint32_t size = matrix.getRowSize();
         Matrix A(matrix);
-        // Apply QR decomposition
-        for (uint32_t iter = 0; iter < iterations; ++iter) {
-            double shift = A.getValue(size - 1, size - 1);
-            Matrix Q, R;
-            auto QR = qrDecomposition(A - (shift * identity(size)));
-            Q = QR.first;
-            R = QR.second;
-            A = R * Q + shift * identity(size);
-            double max_diff = 0;
-            for (uint32_t i = 0; i < size; ++i) {
-                double diff = std::abs(A.getValue(i, i) - shift);
-                max_diff = std::max(max_diff, diff);
+
+        std::mutex mutex;  // protection
+
+        auto worker = [&](uint32_t start, uint32_t end) {
+            for (uint32_t iter = start; iter < end; ++iter) {
+                double shift;
+
+                // mutex
+                {
+                    std::lock_guard<std::mutex> lock(mutex);
+                    shift = A.getValue(size - 1, size - 1);
+                }
+
+                Matrix Q, R;
+                auto QR = qrDecomposition_nonpara(A - (shift * identity(size)));
+                Q = QR.first;
+                R = QR.second;
+
+                // mutex
+                {
+                    std::lock_guard<std::mutex> lock(mutex);
+                    A = R * Q + shift * identity(size);
+                }
+
+                double max_diff = 0;
+                for (uint32_t i = 0; i < size; ++i) {
+                    double diff = std::abs(A.getValue(i, i) - shift);
+                    max_diff = std::max(max_diff, diff);
+                }
+
+                // mutex
+                {
+                    std::lock_guard<std::mutex> lock(mutex);
+                    if (max_diff < tol) break; // break early if converge
+                }
             }
-            if (max_diff < tol) break; // break early if converge
+        };
+
+        // number of available hardware threads
+        unsigned int numThreads = std::thread::hardware_concurrency();
+        std::vector<std::thread> threads;
+
+        for (unsigned int i = 0; i < numThreads; ++i) {
+            uint32_t start = i * iterations / numThreads;
+            uint32_t end = (i + 1) * iterations / numThreads;
+            threads.push_back(std::thread(worker, start, end));
         }
 
-        // extract eigen value from the diagnol matrix we got
+        // Join
+        for (auto& thread : threads) {
+            thread.join();
+        }
+
+        // extract eigen values from the diagonal matrix we got
         std::vector<double> eigenvalues;
         for (uint32_t i = 0; i < size; ++i) {
             eigenvalues.push_back(A.getValue(i, i));
         }
+
         return eigenvalues;
     }
+
 
     std::vector<Matrix> eigenvectors(const Matrix& matrix, uint32_t iterations, double tol) {
         std::vector<double> eig_vals = eigenvalues(matrix, iterations, tol);
@@ -217,7 +282,7 @@ namespace tiele {
             Matrix shiftedMatrix = matrix - identity(matrix.getRowSize()) * eig_val;
 
             // Solve for (A - lambda * I) * v = 0 using QR decomposition
-            std::pair<Matrix, Matrix> qrResult = qrDecomposition(shiftedMatrix);
+            std::pair<Matrix, Matrix> qrResult = qrDecomposition_nonpara(shiftedMatrix);
             Matrix upperTriangular = qrResult.second;
 
             // Back-substitution to find v
@@ -255,16 +320,41 @@ namespace tiele {
         uint32_t size = matrix.getRowSize();
         Matrix L(size, size);
         Matrix U = matrix;
-        for (uint32_t i = 0; i < size; ++i) {
-            L.setValue(i, i, 1.0);
-            for (uint32_t j = i + 1; j < size; ++j) {
-                double factor = U.getValue(j, i) / U.getValue(i, i);
-                L.setValue(j, i, factor);
-                for (uint32_t k = i; k < size; ++k) {
-                    U.setValue(j, k, U.getValue(j, k) - factor * U.getValue(i, k));
+
+        std::mutex mutex;  // Mutex
+
+        auto worker = [&](uint32_t start, uint32_t end) {
+            for (uint32_t i = start; i < end; ++i) {
+                std::lock_guard<std::mutex> lock(mutex);
+                L.setValue(i, i, 1.0);
+
+                for (uint32_t j = i + 1; j < size; ++j) {
+                    double factor = U.getValue(j, i) / U.getValue(i, i);
+                    L.setValue(j, i, factor);
+
+                    for (uint32_t k = i; k < size; ++k) {
+                        U.setValue(j, k, U.getValue(j, k) - factor * U.getValue(i, k));
+                    }
                 }
             }
+        };
+
+        // # of hardware threads
+        unsigned int numThreads = std::thread::hardware_concurrency();
+        std::vector<std::thread> threads;
+
+        // Divide work
+        for (unsigned int i = 0; i < numThreads; ++i) {
+            uint32_t start = i * size / numThreads;
+            uint32_t end = (i + 1) * size / numThreads;
+            threads.push_back(std::thread(worker, start, end));
         }
+
+        // Join
+        for (auto& thread : threads) {
+            thread.join();
+        }
+
         return {L, U};
     }
 
@@ -277,7 +367,7 @@ namespace tiele {
             Matrix shiftedMatrix = matrix - identity(matrix.getRowSize()) * eig_vals[i];
 
             // Solve for (A - lambda * I) * v = 0 using QR decomposition
-            std::pair<Matrix, Matrix> qrResult = qrDecomposition(shiftedMatrix);
+            std::pair<Matrix, Matrix> qrResult = qrDecomposition_nonpara(shiftedMatrix);
             Matrix upperTriangular = qrResult.second;
 
             // Back-substitution to find v
@@ -311,7 +401,7 @@ namespace tiele {
             Matrix shiftedMatrix = matrix - identity(matrix.getRowSize()) * eig_val;
 
             // Solve for (A - lambda * I) * v = 0 using QR decomposition
-            std::pair<Matrix, Matrix> qrResult = qrDecomposition(shiftedMatrix);
+            std::pair<Matrix, Matrix> qrResult = qrDecomposition_nonpara(shiftedMatrix);
             Matrix upperTriangular = qrResult.second;
 
             // Back-substitution to find v
@@ -340,7 +430,7 @@ namespace tiele {
             Matrix shiftedMatrix = matrix - identity(matrix.getRowSize()) * eig_vals[i];
 
             // Solve for (A - lambda * I) * v = 0 using QR decomposition
-            std::pair<Matrix, Matrix> qrResult = qrDecomposition(shiftedMatrix);
+            std::pair<Matrix, Matrix> qrResult = qrDecomposition_nonpara(shiftedMatrix);
             Matrix upperTriangular = qrResult.second;
 
             // Back-substitution to find v
@@ -376,8 +466,8 @@ namespace tiele {
         Matrix AAT = A * tiele::transpose(A);
         Matrix ATA = tiele::transpose(A) * A;
 
-        // U = A * At
-        // V = At * A
+        // U = eigenvector(A * At)
+        // V = eigenvector(At * A)
         Matrix U = eigenvectors_normalized_asMatrix(AAT);
         Matrix V = eigenvectors_normalized_asMatrix(ATA);
 
@@ -393,6 +483,83 @@ namespace tiele {
             }
         }
         return {U, S, V};
+    }
+
+    std::pair<Matrix, Matrix> qrDecomposition_nonpara(const Matrix& matrix) {
+        Matrix A(matrix);
+        uint32_t m = matrix.getRowSize();
+        uint32_t n = matrix.getColSize();
+        Matrix Q(m, n);
+        Matrix R(n, n);
+        for (uint32_t j = 0; j < n; ++j) {
+            Matrix v = A.getColumn(j);
+            for (uint32_t i = 0; i < j; ++i) {
+                double dot = inner(Q.getColumn(i), A.getColumn(j));
+                v = v - dot * Q.getColumn(i);
+            }
+            double normV = norm_frob(v);
+            if (normV < 1e-8) continue;
+
+            // Q
+            for (uint32_t i = 0; i < m; ++i) {
+                Q.setValue(i, j, v.getValue(i, 0) / normV);
+            }
+
+            // R
+            for (uint32_t i = j; i < n; ++i) {
+                R.setValue(j, i, inner(Q.getColumn(j), A.getColumn(i)));
+            }
+        }
+
+        return std::make_pair(Q, R);
+    }
+
+    std::vector<double> eigenvalues_nonpara(const Matrix& matrix, uint32_t iterations, double tol) {
+        uint32_t size = matrix.getRowSize();
+        Matrix A(matrix);
+        // Apply QR decomposition
+        for (uint32_t iter = 0; iter < iterations; ++iter) {
+            double shift = A.getValue(size - 1, size - 1);
+            Matrix Q, R;
+            auto QR = qrDecomposition(A - (shift * identity(size)));
+            Q = QR.first;
+            R = QR.second;
+            A = R * Q + shift * identity(size);
+            double max_diff = 0;
+            for (uint32_t i = 0; i < size; ++i) {
+                double diff = std::abs(A.getValue(i, i) - shift);
+                max_diff = std::max(max_diff, diff);
+            }
+            if (max_diff < tol) break; // break early if converge
+        }
+
+        // extract eigen value from the diagnol matrix we got
+        std::vector<double> eigenvalues;
+        for (uint32_t i = 0; i < size; ++i) {
+            eigenvalues.push_back(A.getValue(i, i));
+        }
+        return eigenvalues;
+    }
+
+    std::pair<Matrix, Matrix> luDecomposition_nonpara(const Matrix& matrix) {
+        if (matrix.getRowSize() != matrix.getColSize()) {
+            throw std::invalid_argument("Input matrix must be a square matrix");
+        }
+
+        uint32_t size = matrix.getRowSize();
+        Matrix L(size, size);
+        Matrix U = matrix;
+        for (uint32_t i = 0; i < size; ++i) {
+            L.setValue(i, i, 1.0);
+            for (uint32_t j = i + 1; j < size; ++j) {
+                double factor = U.getValue(j, i) / U.getValue(i, i);
+                L.setValue(j, i, factor);
+                for (uint32_t k = i; k < size; ++k) {
+                    U.setValue(j, k, U.getValue(j, k) - factor * U.getValue(i, k));
+                }
+            }
+        }
+        return {L, U};
     }
 }
 
