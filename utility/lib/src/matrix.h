@@ -62,25 +62,9 @@ namespace tiele {
         // C = A + B
         Matrix operator+(const Matrix& other) const;
 
-        // overload plus operator
-        // B = A + c
-        Matrix operator+(double rhs_scalar) const;
-
-        // overload addition for Scalar-Matrix
-        // B = c + A
-        friend Matrix operator+(double lhs_scalar, const Matrix& rhs_matrix);
-
         // overload minus operator
         // C = A - B
         Matrix operator-(const Matrix& rhs) const;
-
-        // overload minus operator
-        // B = A - c
-        Matrix operator-(double rhs_scalar) const;
-
-        // overload subtraction for Scalar-Matrix
-        // B = c + A
-        friend Matrix operator-(double lhs_scalar, const Matrix& rhs_matrix);
 
         // overload multiplication calculator for Matrix-Matrix multiplication
         // C = A * B

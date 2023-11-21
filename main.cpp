@@ -15,15 +15,20 @@ int main() {
     std::vector<std::vector<double>> data_a = {{2, -2},
                                                {4, 3}};
     tiele::Matrix A({{3, 1, 4},
-                {2, 3, 6},
-                {0, 5, 10}});
-    // complex algorithm, if you are interested please check tiele.h and tiele.cpp with detailed explaination
-    std::pair<std::vector<double>, tiele::Matrix> eigen_A = tiele::eigen(A);
-    // eigenvalues
-    for (double eigenvalue : eigen_A.first) {
-        std::cout << eigenvalue << " ";
-    }
-    std::cout << std::endl;
-    // eigenvectors (column)
-    std::cout << tiele::eigen(A).second << std::endl;
+                    {2, 3, 6},
+                    {0, 5, 10}});
+    
+    std::cout << tiele::svd(A)[0] << std::endl; // U
+    std::cout << tiele::svd(A)[1] << std::endl; // S
+    std::cout << tiele::svd(A)[2] << std::endl; // V
+
+    tiele::Matrix v1({1, 3, 7});
+    v1 = tiele::transpose(v1);
+    tiele::Matrix v2({6, 5, 9});
+    v2 = tiele::transpose(v2);
+    std::cout << "Inner Product" << std::endl;
+    std::cout << tiele::inner(v1, v2) << std::endl;
+    std::cout << "Outer Product" << std::endl;
+    std::cout << tiele::outer(v1, v2) << std::endl;
+    return 0;
 }
