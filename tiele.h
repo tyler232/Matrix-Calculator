@@ -65,55 +65,49 @@ namespace tiele {
     /// @param iterations default set at 1000, more iteration = more precision
     // but slower runtime, it will mostly converge before 1000, but user have
     // the freedom to adjust convergence
-    /// @param tol tolerance default set at 0.000001, less tolerance = more precision
     /// @return vector that contains all eigenvalues
-    std::vector<double> eigenvalues(const Matrix& matrix, uint32_t iterations=1e3, double tol=1e-6);
+    std::vector<double> eigenvalues(const Matrix& matrix, uint32_t iterations=1e3);
 
     /// @brief get the eigenvector of input matrix
     /// @param matrix 
     /// @param iterations default set at 1000, more iteration = more precision
     // but slower runtime, it will mostly converge before 1000, but user have
     // the freedom to adjust convergence
-    /// @param tol tolerance default set at 0.000001, less tolerance = more precision
     /// @return vector that contains all eigenvectors
-    std::vector<Matrix> eigenvectors(const Matrix& matrix, uint32_t iterations=1e3, double tol=1e-6);
+    std::vector<Matrix> eigenvectors(const Matrix& matrix, uint32_t iterations=1e3);
 
     /// @brief get the normalized eigenvector, normalize using L2 norm
     /// @param matrix 
     /// @param iterations default set at 1000, more iteration = more precision
     // but slower runtime, it will mostly converge before 1000, but user have
     // the freedom to adjust convergence
-    /// @param tol tolerance default set at 0.000001, less tolerance = more precision
     /// @return vector that contains all normalized eigenvectors
-    std::vector<Matrix> eigenvectors_normalized(const Matrix& matrix, uint32_t iterations=1e3, double tol=1e-6);
+    std::vector<Matrix> eigenvectors_normalized(const Matrix& matrix, uint32_t iterations=1e3);
 
     /// @brief get the eigenvector of input matrix as matrix type
     /// @param matrix 
     /// @param iterations default set at 1000, more iteration = more precision
     // but slower runtime, it will mostly converge before 1000, but user have
     // the freedom to adjust convergence
-    /// @param tol tolerance default set at 0.000001, less tolerance = more precision
     /// @return matrix of eigenvectors
-    Matrix eigenvectors_asMatrix(const Matrix& matrix, uint32_t iterations=1e3, double tol=1e-6);
+    Matrix eigenvectors_asMatrix(const Matrix& matrix, uint32_t iterations=1e3);
 
     /// @brief get normalized eigenvectors of input matrix as matrix type
     /// @param matrix 
     /// @param iterations default set at 1000, more iteration = more precision
     // but slower runtime, it will mostly converge before 1000, but user have
     // the freedom to adjust convergence
-    /// @param tol tolerance default set at 0.000001, less tolerance = more precision
     /// @return matrix of normalized eigenvectors
-    Matrix eigenvectors_normalized_asMatrix(const Matrix& matrix, uint32_t iterations=1e3, double tol=1e-6);
+    Matrix eigenvectors_normalized_asMatrix(const Matrix& matrix, uint32_t iterations=1e3);
 
     /// @brief get eigenvalue and eigenvector of the matrix
     /// @param matrix 
     /// @param iterations default set at 1000, more iteration = more precision
     // but slower runtime, it will mostly converge before 1000, but user have
     // the freedom to adjust convergence
-    /// @param tol tolerance default set at 0.000001, less tolerance = more precision
     /// @return pair of vector and Marix, first of the pair is vector of all the eigen
     // values, second of the pair is the Matrix type of normalized eigenvectors
-    std::pair<std::vector<double>, Matrix> eigen(const Matrix& matrix, uint32_t iterations = 1e3, double tol=1e-6);
+    std::pair<std::vector<double>, Matrix> eigen(const Matrix& matrix, uint32_t iterations = 1e3);
 
     /// @brief Get the Frobenius norm
     /// @param matrix 
