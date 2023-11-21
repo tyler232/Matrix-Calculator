@@ -163,30 +163,6 @@ namespace tiele {
         return result;
     }
 
-    Matrix Matrix::operator+(double rhs_scalar) const {
-        Matrix result(row_size, col_size);
-
-        for (uint32_t i = 0; i < row_size; ++i) {
-            for (uint32_t j = 0; j < col_size; ++j) {
-                result.setValue(i, j, getValue(i, j) + rhs_scalar);
-            }
-        }
-
-        return result;
-    }
-
-    Matrix operator+(double lhs_scalar, const Matrix& rhs_matrix) {
-        Matrix result(rhs_matrix.getRowSize(), rhs_matrix.getColSize());
-
-        for (uint32_t i = 0; i < rhs_matrix.getRowSize(); ++i) {
-            for (uint32_t j = 0; j < rhs_matrix.getColSize(); ++j) {
-                result.setValue(i, j, lhs_scalar + rhs_matrix.getValue(i, j));
-            }
-        }
-
-        return result;
-    }
-
     Matrix Matrix::operator-(const Matrix& rhs) const {
         if (row_size != rhs.row_size || col_size != rhs.col_size) {
             std::cerr << "Two matrix have different dimension" << std::endl;
@@ -202,15 +178,6 @@ namespace tiele {
         }
         return result;
     }
-
-    Matrix Matrix::operator-(double rhs_scalar) const {
-        Matrix result(row_size, col_size);
-
-        for (uint32_t i = 0; i < row_size; ++i) {
-            for (uint32_t j = 0; j < col_size; ++j) {
-                result.setValue(i, j, getValue(i, j) - rhs_scalar);
-            }
-        }
 
     // overload multiplication calculator for Matrix-Matrix multiplication
     Matrix Matrix::operator*(const Matrix& rhs) const {
@@ -234,7 +201,6 @@ namespace tiele {
 
         return result;
     }
-
 
     Matrix Matrix::operator*(double rhs_scalar) const {
         Matrix result(row_size, col_size);
