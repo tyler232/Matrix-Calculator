@@ -212,21 +212,6 @@ namespace tiele {
             }
         }
 
-        return result;
-    }
-
-    Matrix operator-(double lhs_scalar, const Matrix& rhs_matrix) {
-        Matrix result(rhs_matrix.getRowSize(), rhs_matrix.getColSize());
-
-        for (uint32_t i = 0; i < rhs_matrix.getRowSize(); ++i) {
-            for (uint32_t j = 0; j < rhs_matrix.getColSize(); ++j) {
-                result.setValue(i, j, lhs_scalar - rhs_matrix.getValue(i, j));
-            }
-        }
-
-        return result;
-    }
-
     // overload multiplication calculator for Matrix-Matrix multiplication
     Matrix Matrix::operator*(const Matrix& rhs) const {
         if (col_size != rhs.row_size) {
