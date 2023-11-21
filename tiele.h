@@ -9,7 +9,8 @@
 #include <iostream>
 #include <vector>
 #include <limits>
-
+#include <thread>
+#include <mutex>
 namespace tiele {
     /// @brief get the inverse of input matrix
     /// @param matrix 
@@ -112,6 +113,25 @@ namespace tiele {
     /// @param matrix 
     /// @return Frobenius norm
     double norm_frob(const Matrix& matrix);
+
+    /// @brief Non Paralleled QR decomposition
+    /// @param matrix 
+    /// @return matrix Q in first of the pair, matrix R in second of the pair
+    std::pair<Matrix, Matrix> qrDecomposition_nonpara(const Matrix& matrix);
+
+    /// @brief Non paralleled eigenvector, get the eigenvalue of input matrix
+    /// @param matrix 
+    /// @param iterations default set at 1000, more iteration = more precision
+    // but slower runtime, it will mostly converge before 1000, but user have
+    // the freedom to adjust convergence
+    /// @param tol tolerance default set at 0.000001, less tolerance = more precision
+    /// @return vector that contains all eigenvalues
+    std::vector<double> eigenvalues_nonpara(const Matrix& matrix, uint32_t iterations=1e3, double tol=1e-6);
+
+    /// @brief Non paralleled LU decomposition, get the LU decomposition of matrix
+    /// @param matrix 
+    /// @return matrix L in first of the pair, matrix U in second of the pair
+    std::pair<Matrix, Matrix> luDecomposition_nonpara(const Matrix& matrix);
 }
 
 #endif
