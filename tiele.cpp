@@ -205,6 +205,7 @@ namespace tiele {
         return std::make_pair(Q, R);
     }
 
+<<<<<<< HEAD
     
 
     std::vector<double> eigenvalues(const Matrix& matrix, uint32_t iterations, double tol) {
@@ -256,6 +257,19 @@ namespace tiele {
             uint32_t start = i * iterations / numThreads;
             uint32_t end = (i + 1) * iterations / numThreads;
             threads.push_back(std::thread(worker, start, end));
+=======
+    std::vector<double> eigenvalues(const Matrix& matrix, uint32_t iterations) {
+        uint32_t size = matrix.getRowSize();
+        Matrix A(matrix);
+        // Apply QR decomposition
+        for (uint32_t iter = 0; iter < iterations; ++iter) {
+            double shift = A.getValue(size - 1, size - 1);
+            Matrix Q, R;
+            auto QR = qrDecomposition(A - (shift * identity(size)));
+            Q = QR.first;
+            R = QR.second;
+            A = R * Q + shift * identity(size);
+>>>>>>> parent of 062f9ce (Optimization on eigen function)
         }
 
         // Join
@@ -272,9 +286,14 @@ namespace tiele {
         return eigenvalues;
     }
 
+<<<<<<< HEAD
 
     std::vector<Matrix> eigenvectors(const Matrix& matrix, uint32_t iterations, double tol) {
         std::vector<double> eig_vals = eigenvalues(matrix, iterations, tol);
+=======
+    std::vector<Matrix> eigenvectors(const Matrix& matrix, uint32_t iterations) {
+        std::vector<double> eig_vals = eigenvalues(matrix, iterations);
+>>>>>>> parent of 062f9ce (Optimization on eigen function)
         std::vector<Matrix> eig_vecs;
 
         for (double eig_val : eig_vals) {
@@ -358,8 +377,8 @@ namespace tiele {
         return {L, U};
     }
 
-    Matrix eigenvectors_asMatrix(const Matrix& matrix, uint32_t iterations, double tol) {
-        std::vector<double> eig_vals = eigenvalues(matrix, iterations, tol);
+    Matrix eigenvectors_asMatrix(const Matrix& matrix, uint32_t iterations) {
+        std::vector<double> eig_vals = eigenvalues(matrix, iterations);
         Matrix eig_vecs(matrix.getRowSize(), eig_vals.size());
 
         for (size_t i = 0; i < eig_vals.size(); ++i) {
@@ -392,8 +411,8 @@ namespace tiele {
         return eig_vecs;
     }
 
-    std::vector<Matrix> eigenvectors_normalized(const Matrix& matrix, uint32_t iterations, double tol) {
-        std::vector<double> eig_vals = eigenvalues(matrix, iterations, tol);
+    std::vector<Matrix> eigenvectors_normalized(const Matrix& matrix, uint32_t iterations) {
+        std::vector<double> eig_vals = eigenvalues(matrix, iterations);
         std::vector<Matrix> eig_vecs;
 
         for (double eig_val : eig_vals) {
@@ -421,8 +440,8 @@ namespace tiele {
         return eig_vecs;
     }
 
-    Matrix eigenvectors_normalized_asMatrix(const Matrix& matrix, uint32_t iterations, double tol) {
-        std::vector<double> eig_vals = eigenvalues(matrix, iterations, tol);
+    Matrix eigenvectors_normalized_asMatrix(const Matrix& matrix, uint32_t iterations) {
+        std::vector<double> eig_vals = eigenvalues(matrix, iterations);
         Matrix eig_vecs(matrix.getRowSize(), eig_vals.size());
 
         for (size_t i = 0; i < eig_vals.size(); ++i) {
@@ -455,8 +474,8 @@ namespace tiele {
         return eig_vecs;
     }
 
-    std::pair<std::vector<double>, Matrix> eigen(const Matrix& matrix, uint32_t iterations, double tol) {
-        return std::make_pair(eigenvalues(matrix, iterations, tol), 
+    std::pair<std::vector<double>, Matrix> eigen(const Matrix& matrix, uint32_t iterations) {
+        return std::make_pair(eigenvalues(matrix, iterations), 
                              eigenvectors_normalized_asMatrix(matrix, iterations));
     }
 
