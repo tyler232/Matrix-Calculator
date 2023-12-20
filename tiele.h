@@ -9,8 +9,7 @@
 #include <iostream>
 #include <vector>
 #include <limits>
-#include <thread>
-#include <mutex>
+
 namespace tiele {
     /// @brief get the inverse of input matrix
     /// @param matrix 
