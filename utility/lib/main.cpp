@@ -1,5 +1,6 @@
 #include "src/matrix.h"
 #include <iostream>
+
 int main() {
     tiele::Matrix matrix(3, 3);
     matrix.setValue(2, 1, 4);

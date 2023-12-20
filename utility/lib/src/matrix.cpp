@@ -1,4 +1,5 @@
 #include "matrix.h"
+
 namespace tiele {
     Matrix::Matrix(uint32_t rows, uint32_t cols) : row_size(rows), col_size(cols) {
         for (uint32_t i = 0; i < row_size; ++i) {
